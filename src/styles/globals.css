@@ -1,0 +1,697 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* @layer base {
+  @custom-media --sm (min-width: 640px);
+  @custom-media --md (min-width: 768px);
+  @custom-media --lg (min-width: 1300px);
+  @custom-media --xl (min-width: 1440px);
+  @custom-media --2xl (min-width: 1920px);
+} */
+
+/* @theme {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1300px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-2xl: 1920px;
+} */
+
+/* =================================================== MAPEAMENTO (THEME) =================================================== */
+@theme inline {
+  /* #region  FONTS ============================================================ */
+  --font-sans: var(--font-montserrat);
+  --font-mono: var(--font-dm-mono);
+  --font-manrope: var(--font-manrope);
+
+  /* #endregion FONTS ========================================================== */
+
+  /* #region SHADCNUI BASE COLORS ============================================== */
+
+  /* Base & Surfaces */
+  --color-background: var(--color-io-background);
+  --color-foreground: var(--color-io-foreground);
+  --color-border: var(--color-io-border);
+  --color-input: var(--color-io-input-border);
+  --color-ring: var(--color-io-ring);
+
+  /* Primary & Secondary */
+  --color-primary: var(--color-io-accent);
+  --color-primary-foreground: var(--color-io-foreground-lighter);
+  --color-secondary: var(--color-io-accent2);
+  --color-secondary-foreground: var(--color-io-foreground-lighter);
+
+  /* Destructive (Error) */
+  --color-destructive: var(--color-io-error);
+  --color-destructive-foreground: var(--color-io-foreground-lighter);
+
+  /* Muted & Accent (UI States) */
+  --color-muted: var(--color-io-muted);
+  --color-muted-foreground: var(--color-io-foreground-dark);
+  --color-accent: var(--color-io-accent);
+  --color-accent-foreground: var(--color-io-accent-darker);
+
+  /* Popover & Card */
+  --color-popover: var(--color-io-background-popover);
+  --color-popover-foreground: var(--color-io-foreground-popover);
+  --color-card: var(--color-io-background-card);
+  --color-card-foreground: var(--color-io-foreground-card);
+
+  /* Sidebar */
+  --color-sidebar: var(--color-io-background-sidebar);
+  --color-sidebar-foreground: var(--color-io-foreground-sidebar);
+  --color-sidebar-primary: var(--color-io-accent);
+  --color-sidebar-primary-foreground: var(--color-io-foreground-lighter);
+  --color-sidebar-accent: var(--color-io-accent-light);
+  --color-sidebar-accent-foreground: var(--color-io-accent-darker);
+  --color-sidebar-border: var(--color-io-border);
+  --color-sidebar-ring: var(--color-io-ring);
+
+  /* Charts */
+  --color-chart-1: var(--color-io-chart-1);
+  --color-chart-2: var(--color-io-chart-2);
+  --color-chart-3: var(--color-io-chart-3);
+  --color-chart-4: var(--color-io-chart-4);
+  --color-chart-5: var(--color-io-chart-5);
+
+  /* #endregion SHADCNUI BASE COLORS =========================================== */
+
+  /* #region IO SEMANTIC COLORS ================================================ */
+
+  /* #region Semantic Colors - Background & Foreground */
+
+  /* Background */
+  --color-io-background-lighter: var(--color-io-background-lighter);
+  --color-io-background-light: var(--color-io-background-light);
+  --color-io-background: var(--color-io-background);
+  --color-io-background-dark: var(--color-io-background-dark);
+  --color-io-background-darker: var(--color-io-background-darker);
+
+  --color-io-background-sidebar: var(--color-io-background-sidebar);
+
+  --color-io-background-popover: var(--color-io-background-popover);
+
+  --color-io-background-card-lighter: var(--color-io-background-card-lighter);
+  --color-io-background-card-light: var(--color-io-background-card-light);
+  --color-io-background-card: var(--color-io-background-card);
+  --color-io-background-card-dark: var(--color-io-background-card-dark);
+  --color-io-background-card-darker: var(--color-io-background-card-darker);
+  /* ------------------------------------- */
+
+  /* Foreground */
+  --color-io-foreground-lighter: var(--color-io-foreground-lighter);
+  --color-io-foreground-light: var(--color-io-foreground-light);
+  --color-io-foreground: var(--color-io-foreground);
+  --color-io-foreground-dark: var(--color-io-foreground-dark);
+  --color-io-foreground-darker: var(--color-io-foreground-darker);
+
+  --color-io-foreground-sidebar: var(--color-io-foreground);
+
+  --color-io-foreground-popover: var(--color-io-foreground);
+
+  --color-io-foreground-card-lighter: var(--color-io-foreground-card-lighter);
+  --color-io-foreground-card-light: var(--color-io-foreground-card-light);
+  --color-io-foreground-card: var(--color-io-foreground-card);
+  --color-io-foreground-card-dark: var(--color-io-foreground-card-dark);
+  --color-io-foreground-card-darker: var(--color-io-foreground-card-darker);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Text Typography */
+
+  /* Text Background */
+  --color-io-text-lighter: var(--color-io-text-lighter);
+  --color-io-text-light: var(--color-io-text-light);
+  --color-io-text: var(--color-io-text);
+  --color-io-text-dark: var(--color-io-text-dark);
+  --color-io-text-darker: var(--color-io-text-darker);
+
+  --color-io-text-disabled: var(--color-io-text-disabled);
+
+  --color-io-text-link: var(--color-io-text-link);
+  --color-io-text-link-hover: var(--color-io-text-link-hover);
+  --color-io-text-link-visited: var(--color-io-text-link-visited);
+  --color-io-text-link-active: var(--color-io-text-link-active);
+  --color-io-text-link-disabled: var(--color-io-text-link-disabled);
+  /* ------------------------------------- */
+
+  /* Text Foreground */
+  --color-io-text-foreground-lighter: var(--color-io-text-foreground-lighter);
+  --color-io-text-foreground-light: var(--color-io-text-foreground-light);
+  --color-io-text-foreground: var(--color-io-text-foreground);
+  --color-io-text-foreground-dark: var(--color-io-text-foreground-dark);
+  --color-io-text-foreground-darker: var(--color-io-text-foreground-darker);
+
+  --color-io-text-foreground-disabled: var(--color-io-text-foreground-disabled);
+
+  --color-io-text-foreground-link: var(--color-io-text-foreground-link);
+  --color-io-text-foreground-link-hover: var(
+    --color-io-text-foreground-link-hover
+  );
+  --color-io-text-foreground-link-visited: var(
+    --color-io-text-foreground-link-visited
+  );
+  --color-io-text-foreground-link-active: var(
+    --color-io-text-foreground-link-active
+  );
+  --color-io-text-foreground-link-disabled: var(
+    --color-io-text-foreground-link-disabled
+  );
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Accent */
+
+  /* Accent 1 */
+  --color-io-accent-lighter: var(--color-io-accent-lighter);
+  --color-io-accent-light: var(--color-io-accent-light);
+  --color-io-accent: var(--color-io-accent);
+  --color-io-accent-dark: var(--color-io-accent-dark);
+  --color-io-accent-darker: var(--color-io-accent-darker);
+  /* ------------------------------------- */
+
+  /* Accent 2 */
+  --color-io-accent2-lighter: var(--color-io-accent2-lighter);
+  --color-io-accent2-light: var(--color-io-accent2-light);
+  --color-io-accent2: var(--color-io-accent2);
+  --color-io-accent2-dark: var(--color-io-accent2-dark);
+  --color-io-accent2-darker: var(--color-io-accent2-darker);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Action States */
+
+  /* Info */
+  --color-io-info-lighter: var(--color-io-info-lighter);
+  --color-io-info-light: var(--color-io-info-light);
+  --color-io-info: var(--color-io-info);
+  --color-io-info-dark: var(--color-io-info-dark);
+  --color-io-info-darker: var(--color-io-info-darker);
+  /* ------------------------------------- */
+
+  /* success */
+  --color-io-success-lighter: var(--color-io-success-lighter);
+  --color-io-success-light: var(--color-io-success-light);
+  --color-io-success: var(--color-io-success);
+  --color-io-success-dark: var(--color-io-success-dark);
+  --color-io-success-darker: var(--color-io-success-darker);
+  /* ------------------------------------- */
+
+  /* Warning */
+  --color-io-warning-lighter: var(--color-io-warning-lighter);
+  --color-io-warning-light: var(--color-io-warning-light);
+  --color-io-warning: var(--color-io-warning);
+  --color-io-warning-dark: var(--color-io-warning-dark);
+  --color-io-warning-darker: var(--color-io-warning-darker);
+  /* ------------------------------------- */
+
+  /* Error */
+  --color-io-error-lighter: var(--color-io-error-lighter);
+  --color-io-error-light: var(--color-io-error-light);
+  --color-io-error: var(--color-io-error);
+  --color-io-error-dark: var(--color-io-error-dark);
+  --color-io-error-darker: var(--color-io-error-darker);
+  /* ------------------------------------- */
+
+  /* Muted */
+  --color-io-muted-lighter: var(--color-io-muted-lighter);
+  --color-io-muted-light: var(--color-io-muted-light);
+  --color-io-muted: var(--color-io-muted);
+  --color-io-muted-dark: var(--color-io-muted-dark);
+  --color-io-muted-darker: var(--color-io-muted-darker);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Input & Borders & Ring */
+
+  /* Border Radius */
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  /* ------------------------------------- */
+
+  /* Border */
+  --color-io-border: var(--color-io-border);
+  --color-io-border-hover: var(--color-io-border-hover);
+  --color-io-border-active: var(--color-io-border-active);
+  --color-io-border-disabled: var(--color-io-border-disabled);
+  /* ------------------------------------- */
+
+  /* Ring */
+  --color-io-ring: var(--color-io-ring);
+  --color-io-ring-hover: var(--color-io-ring-hover);
+  --color-io-ring-active: var(--color-io-ring-active);
+  --color-io-ring-disabled: var(--color-io-ring-disabled);
+  /* ------------------------------------- */
+
+  /* Input */
+  --color-io-input-background: var(--color-io-input-background);
+  --color-io-input-foreground: var(--color-io-input-foreground);
+
+  --color-io-input-border: var(--color-io-input-border);
+  --color-io-input-placeholder: var(--color-io-input-placeholder);
+
+  --color-io-input-disabled-background: var(
+    --color-io-input-disabled-background
+  );
+  --color-io-input-disabled-foreground: var(
+    --color-io-input-disabled-foreground
+  );
+  --color-io-input-disabled-border: var(--color-io-input-disabled-border);
+  --color-io-input-disabled-placeholder: var(
+    --color-io-input-disabled-placeholder
+  );
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /*#region Semantic Colors - Chart */
+  --color-io-chart-1: var(--color-io-chart-1);
+  --color-io-chart-2: var(--color-io-chart-2);
+  --color-io-chart-3: var(--color-io-chart-3);
+  --color-io-chart-4: var(--color-io-chart-4);
+  --color-io-chart-5: var(--color-io-chart-5);
+  /* #endregion */
+
+  /* #region Semantic Colors - Buttons */
+  --color-io-button-default: var(--color-io-button-default);
+  --color-io-button-destructive: var(--color-io-button-destructive);
+  --color-io-button-outline: var(--color-io-button-outline);
+  --color-io-button-sidebar: var(--color-io-button-sidebar);
+
+  --color-io-button-active: var(--color-io-button-active);
+  --color-io-button-inactive: var(--color-io-button-inactive);
+  --color-io-button-hover: var(--color-io-button-hover);
+
+  --color-io-button-text-active: var(--color-io-button-text-active);
+  --color-io-button-text-inactive: var(--color-io-button-text-inactive);
+  --color-io-button-text-foreground: var(--color-io-button-text-foreground);
+  /* #endregion */
+
+  /* #endregion IO SEMANTIC COLORS ============================================== */
+}
+
+/*  ---------------- ROOT (LIGHT) ---------------------- */
+:root {
+  /* #region Semantic Colors - Background & Foreground */
+
+  /* Background */
+  --color-io-background-lighter: rgb(255, 255, 255);
+  --color-io-background-light: rgb(248, 248, 248);
+  --color-io-background: rgb(245, 245, 245);
+  --color-io-background-dark: rgb(235, 235, 235);
+  --color-io-background-darker: rgb(225, 225, 225);
+
+  --color-io-background-sidebar: rgb(240, 240, 240);
+
+  --color-io-background-popover: rgb(255, 255, 255);
+
+  --color-io-background-card-lighter: rgb(255, 255, 255);
+  --color-io-background-card-light: rgb(253, 253, 253);
+  --color-io-background-card: rgb(250, 250, 250);
+  --color-io-background-card-dark: rgb(247, 247, 247);
+  --color-io-background-card-darker: rgb(243, 243, 243);
+  /* ------------------------------------- */
+
+  /* Foreground */
+  --color-io-foreground-lighter: rgb(25, 25, 25);
+  --color-io-foreground-light: rgb(35, 35, 35);
+  --color-io-foreground: rgb(50, 50, 50);
+  --color-io-foreground-dark: rgb(65, 65, 65);
+  --color-io-foreground-darker: rgb(80, 80, 80);
+
+  --color-io-foreground-sidebar: rgb(50, 50, 50);
+
+  --color-io-foreground-popover: rgb(50, 50, 50);
+
+  --color-io-foreground-card-lighter: rgb(20, 20, 20);
+  --color-io-foreground-card-light: rgb(30, 30, 30);
+  --color-io-foreground-card: rgb(45, 45, 45);
+  --color-io-foreground-card-dark: rgb(60, 60, 60);
+  --color-io-foreground-card-darker: rgb(75, 75, 75);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Text Typography */
+
+  /* Text Background */
+  --color-io-text-lighter: rgb(10, 10, 10);
+  --color-io-text-light: rgb(20, 20, 20);
+  --color-io-text: rgb(30, 30, 30);
+  --color-io-text-dark: rgb(40, 40, 40);
+  --color-io-text-darker: rgb(50, 50, 50);
+
+  --color-io-text-disabled: rgb(70, 70, 70);
+
+  --color-io-text-link: rgb(96, 165, 250);
+  --color-io-text-link-hover: rgb(147, 197, 253);
+  --color-io-text-link-visited: rgb(216, 180, 254);
+  --color-io-text-link-active: rgb(252, 165, 165);
+  --color-io-text-link-disabled: rgb(75, 85, 99);
+  /* ------------------------------------- */
+
+  /* Text Foreground */
+  --color-io-text-foreground-lighter: rgb(240, 240, 240);
+  --color-io-text-foreground-light: rgb(230, 230, 230);
+  --color-io-text-foreground: rgb(220, 220, 220);
+  --color-io-text-foreground-dark: rgb(210, 210, 210);
+  --color-io-text-foreground-darker: rgb(200, 200, 200);
+
+  --color-io-text-foreground-disabled: rgb(100, 100, 100);
+
+  --color-io-text-foreground-link: rgb(96, 165, 250);
+  --color-io-text-foreground-link-hover: rgb(147, 197, 253);
+  --color-io-text-foreground-link-visited: rgb(216, 180, 254);
+  --color-io-text-foreground-link-active: rgb(252, 165, 165);
+  --color-io-text-foreground-link-disabled: rgb(75, 85, 99);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Accent */
+
+  /* Accent 1 */
+  --color-io-accent-lighter: rgb(186, 230, 253);
+  --color-io-accent-light: rgb(125, 211, 252);
+  --color-io-accent: rgb(0, 250, 71);
+  --color-io-accent-dark: rgb(14, 165, 233);
+  --color-io-accent-darker: rgb(2, 132, 199);
+  /* ------------------------------------- */
+
+  /* Accent 2 */
+  --color-io-accent2-lighter: rgb(233, 213, 255);
+  --color-io-accent2-light: rgb(216, 180, 254);
+  --color-io-accent2: rgb(192, 132, 252);
+  --color-io-accent2-dark: rgb(168, 85, 247);
+  --color-io-accent2-darker: rgb(147, 51, 234);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Action States */
+
+  /* Info */
+  --color-io-info-lighter: rgb(219, 234, 254);
+  --color-io-info-light: rgb(191, 219, 254);
+  --color-io-info: rgb(59, 130, 246);
+  --color-io-info-dark: rgb(37, 99, 235);
+  --color-io-info-darker: rgb(29, 78, 216);
+  /* ------------------------------------- */
+
+  /* success */
+  --color-io-success-lighter: rgb(209, 250, 229);
+  --color-io-success-light: rgb(167, 243, 208);
+  --color-io-success: rgb(34, 197, 94);
+  --color-io-success-dark: rgb(22, 163, 74);
+  --color-io-success-darker: rgb(21, 128, 61);
+  /* ------------------------------------- */
+
+  /* Warning */
+  --color-io-warning-lighter: rgb(254, 244, 199);
+  --color-io-warning-light: rgb(253, 230, 138);
+  --color-io-warning: rgb(250, 204, 21);
+  --color-io-warning-dark: rgb(234, 179, 8);
+  --color-io-warning-darker: rgb(202, 138, 4);
+  /* ------------------------------------- */
+
+  /* Error */
+  --color-io-error-lighter: rgb(254, 226, 226);
+  --color-io-error-light: rgb(254, 202, 202);
+  --color-io-error: rgb(239, 68, 68);
+  --color-io-error-dark: rgb(220, 38, 38);
+  --color-io-error-darker: rgb(185, 28, 28);
+  /* ------------------------------------- */
+
+  /* Muted */
+  --color-io-muted-lighter: rgb(249, 250, 251);
+  --color-io-muted-light: rgb(243, 244, 246);
+  --color-io-muted: rgb(229, 231, 235);
+  --color-io-muted-dark: rgb(209, 213, 219);
+  --color-io-muted-darker: rgb(156, 163, 175);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Input & Borders & Ring */
+
+  /* Border */
+  --color-io-border: rgb(229, 231, 235);
+  --color-io-border-hover: rgb(209, 213, 219);
+  --color-io-border-active: rgb(156, 163, 175);
+  --color-io-border-disabled: rgb(243, 244, 246);
+  /* ------------------------------------- */
+
+  /* Ring */
+  --color-io-ring: rgb(59, 130, 246);
+  --color-io-ring-hover: rgb(37, 99, 235);
+  --color-io-ring-active: rgb(29, 78, 216);
+  --color-io-ring-disabled: rgb(209, 213, 219);
+  /* ------------------------------------- */
+
+  /* Input */
+  --color-io-input-background: rgb(255, 255, 255);
+  --color-io-input-foreground: rgb(50, 50, 50);
+
+  --color-io-input-border: rgb(229, 231, 235);
+  --color-io-input-placeholder: rgb(156, 163, 175);
+
+  --color-io-input-disabled-background: rgb(249, 250, 251);
+  --color-io-input-disabled-foreground: rgb(156, 163, 175);
+  --color-io-input-disabled-border: rgb(243, 244, 246);
+  --color-io-input-disabled-placeholder: rgb(209, 213, 219);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /*#region Semantic Colors - Chart */
+  --color-io-chart-1: rgb(59, 130, 246);
+  --color-io-chart-2: rgb(16, 185, 129);
+  --color-io-chart-3: rgb(245, 158, 11);
+  --color-io-chart-4: rgb(239, 68, 68);
+  --color-io-chart-5: rgb(168, 85, 247);
+  /* #endregion */
+
+  /* #region Semantic Colors - Buttons */
+  --color-io-button-default: rgb(59, 130, 246);
+  --color-io-button-destructive: rgb(239, 68, 68);
+  --color-io-button-outline: rgb(255, 255, 255);
+  --color-io-button-sidebar: rgb(240, 240, 240);
+
+  --color-io-button-active: rgb(37, 99, 235);
+  --color-io-button-inactive: rgb(229, 231, 235);
+  --color-io-button-hover: rgb(96, 165, 250);
+
+  --color-io-button-text-active: rgb(255, 255, 255);
+  --color-io-button-text-inactive: rgb(107, 114, 128);
+  --color-io-button-text-foreground: rgb(50, 50, 50);
+  /* #endregion */
+}
+
+/*  ---------------- DARK ------------------------------ */
+.dark {
+  /* #region Semantic Colors - Background & Foreground */
+
+  /* Background */
+  --color-io-background-lighter: rgb(10, 10, 10);
+  --color-io-background-light: rgb(20, 20, 20);
+  --color-io-background: rgb(10, 10, 10);
+  --color-io-background-dark: rgb(40, 40, 40);
+  --color-io-background-darker: rgb(50, 50, 50);
+
+  --color-io-background-sidebar: rgb(25, 25, 25);
+
+  --color-io-background-popover: rgb(40, 40, 40);
+
+  --color-io-background-card-lighter: rgb(35, 35, 35);
+  --color-io-background-card-light: rgb(40, 40, 40);
+  --color-io-background-card: rgb(45, 45, 45);
+  --color-io-background-card-dark: rgb(50, 50, 50);
+  --color-io-background-card-darker: rgb(55, 55, 55);
+  /* ------------------------------------- */
+
+  /* Foreground */
+  --color-io-foreground-lighter: rgb(230, 230, 230);
+  --color-io-foreground-light: rgb(220, 220, 220);
+  --color-io-foreground: rgb(210, 210, 210);
+  --color-io-foreground-dark: rgb(200, 200, 200);
+  --color-io-foreground-darker: rgb(190, 190, 190);
+
+  --color-io-foreground-sidebar: rgb(210, 210, 210);
+
+  --color-io-foreground-popover: rgb(210, 210, 210);
+
+  --color-io-foreground-card-lighter: rgb(240, 240, 240);
+  --color-io-foreground-card-light: rgb(230, 230, 230);
+  --color-io-foreground-card: rgb(220, 220, 220);
+  --color-io-foreground-card-dark: rgb(210, 210, 210);
+  --color-io-foreground-card-darker: rgb(200, 200, 200);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Text Typography */
+
+  /* Text Background */
+  --color-io-text-lighter: rgb(255, 255, 255);
+  --color-io-text-light: rgb(248, 248, 248);
+  --color-io-text: rgb(245, 245, 245);
+  --color-io-text-dark: rgb(235, 235, 235);
+  --color-io-text-darker: rgb(225, 225, 225);
+
+  --color-io-text-disabled: rgb(200, 200, 200);
+
+  --color-io-text-link: rgb(59, 130, 246);
+  --color-io-text-link-hover: rgb(37, 99, 235);
+  --color-io-text-link-visited: rgb(147, 51, 234);
+  --color-io-text-link-active: rgb(220, 38, 38);
+  --color-io-text-link-disabled: rgb(156, 163, 175);
+  /* ------------------------------------- */
+
+  /* Text Foreground */
+  --color-io-text-foreground-lighter: rgb(25, 25, 25);
+  --color-io-text-foreground-light: rgb(35, 35, 35);
+  --color-io-text-foreground: rgb(50, 50, 50);
+  --color-io-text-foreground-dark: rgb(65, 65, 65);
+  --color-io-text-foreground-darker: rgb(80, 80, 80);
+
+  --color-io-text-foreground-disabled: rgb(150, 150, 150);
+
+  --color-io-text-foreground-link: rgb(59, 130, 246);
+  --color-io-text-foreground-link-hover: rgb(37, 99, 235);
+  --color-io-text-foreground-link-visited: rgb(147, 51, 234);
+  --color-io-text-foreground-link-active: rgb(220, 38, 38);
+  --color-io-text-foreground-link-disabled: rgb(156, 163, 175);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Accent */
+
+  /* Accent 1 */
+  --color-io-accent-lighter: rgb(56, 189, 248);
+  --color-io-accent-light: rgb(14, 165, 233);
+  --color-io-accent: rgb(0, 253, 55);
+  --color-io-accent-dark: rgb(3, 105, 161);
+  --color-io-accent-darker: rgb(7, 89, 133);
+  /* ------------------------------------- */
+
+  /* Accent 2 */
+  --color-io-accent2-lighter: rgb(192, 132, 252);
+  --color-io-accent2-light: rgb(168, 85, 247);
+  --color-io-accent2: rgb(147, 51, 234);
+  --color-io-accent2-dark: rgb(126, 34, 206);
+  --color-io-accent2-darker: rgb(107, 33, 168);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Action States */
+
+  /* Info */
+  --color-io-info-lighter: rgb(59, 130, 246);
+  --color-io-info-light: rgb(37, 99, 235);
+  --color-io-info: rgb(29, 78, 216);
+  --color-io-info-dark: rgb(30, 64, 175);
+  --color-io-info-darker: rgb(30, 58, 138);
+  /* ------------------------------------- */
+
+  /* success */
+  --color-io-success-lighter: rgb(34, 197, 94);
+  --color-io-success-light: rgb(22, 163, 74);
+  --color-io-success: rgb(21, 128, 61);
+  --color-io-success-dark: rgb(22, 101, 52);
+  --color-io-success-darker: rgb(20, 83, 45);
+  /* ------------------------------------- */
+
+  /* Warning */
+  --color-io-warning-lighter: rgb(250, 204, 21);
+  --color-io-warning-light: rgb(234, 179, 8);
+  --color-io-warning: rgb(202, 138, 4);
+  --color-io-warning-dark: rgb(161, 98, 7);
+  --color-io-warning-darker: rgb(133, 77, 14);
+  /* ------------------------------------- */
+
+  /* Error */
+  --color-io-error-lighter: rgb(239, 68, 68);
+  --color-io-error-light: rgb(220, 38, 38);
+  --color-io-error: rgb(185, 28, 28);
+  --color-io-error-dark: rgb(153, 27, 27);
+  --color-io-error-darker: rgb(127, 29, 29);
+  /* ------------------------------------- */
+
+  /* Muted */
+  --color-io-muted-lighter: rgb(55, 65, 81);
+  --color-io-muted-light: rgb(75, 85, 99);
+  --color-io-muted: rgb(107, 114, 128);
+  --color-io-muted-dark: rgb(156, 163, 175);
+  --color-io-muted-darker: rgb(209, 213, 219);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /* #region Semantic Colors - Input & Borders & Ring */
+
+  /* Border */
+  --color-io-border: rgb(55, 65, 81);
+  --color-io-border-hover: rgb(75, 85, 99);
+  --color-io-border-active: rgb(107, 114, 128);
+  --color-io-border-disabled: rgb(31, 41, 55);
+  /* ------------------------------------- */
+
+  /* Ring */
+  --color-io-ring: rgb(96, 165, 250);
+  --color-io-ring-hover: rgb(147, 197, 253);
+  --color-io-ring-active: rgb(59, 130, 246);
+  --color-io-ring-disabled: rgb(55, 65, 81);
+  /* ------------------------------------- */
+
+  /* Input */
+  --color-io-input-background: rgb(40, 40, 40);
+  --color-io-input-foreground: rgb(220, 220, 220);
+
+  --color-io-input-border: rgb(55, 65, 81);
+  --color-io-input-placeholder: rgb(107, 114, 128);
+
+  --color-io-input-disabled-background: rgb(30, 30, 30);
+  --color-io-input-disabled-foreground: rgb(107, 114, 128);
+  --color-io-input-disabled-border: rgb(55, 65, 81);
+  --color-io-input-disabled-placeholder: rgb(75, 85, 99);
+  /* ------------------------------------- */
+
+  /* #endregion */
+
+  /*#region Semantic Colors - Chart */
+  --color-io-chart-1: rgb(96, 165, 250);
+  --color-io-chart-2: rgb(52, 211, 153);
+  --color-io-chart-3: rgb(251, 191, 36);
+  --color-io-chart-4: rgb(248, 113, 113);
+  --color-io-chart-5: rgb(192, 132, 252);
+  /* #endregion */
+
+  /* #region Semantic Colors - Buttons */
+  --color-io-button-default: rgb(37, 99, 235);
+  --color-io-button-destructive: rgb(185, 28, 28);
+  --color-io-button-outline: rgb(45, 45, 45);
+  --color-io-button-sidebar: rgb(35, 35, 35);
+
+  --color-io-button-active: rgb(29, 78, 216);
+  --color-io-button-inactive: rgb(55, 65, 81);
+  --color-io-button-hover: rgb(59, 130, 246);
+
+  --color-io-button-text-active: rgb(255, 255, 255);
+  --color-io-button-text-inactive: rgb(156, 163, 175);
+  --color-io-button-text-foreground: rgb(220, 220, 220);
+  /* #endregion */
+}

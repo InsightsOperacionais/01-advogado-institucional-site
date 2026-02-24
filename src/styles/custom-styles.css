@@ -1,0 +1,198 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  /* Força o HTML e Body a não terem scroll próprio para não duplicar */
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  /* Reset global para botões */
+  button {
+    cursor: pointer;
+  }
+
+  /* Classe para esconder a barra nativa preservando o scroll */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  /* SOLUÇÃO PARA FLUTUAÇÃO: 
+     Se você ainda quer que a barra apareça, mas sem ocupar espaço, 
+     usamos este seletor específico para Webkit:
+  */
+  .overflow-y-auto {
+    /* No Chrome/Edge moderno, isso faz a barra flutuar */
+    overflow-y: overlay !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.15); /* Cor bem clarinha */
+    border-radius: 20px;
+    /* O segredo: borda transparente + background-clip faz ela 'encolher' */
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+@layer utilities {
+  .h-layoutScreen {
+    height: calc(96vh - 48px);
+  }
+}
+
+@theme {
+  --stroke-none: unset;
+}
+
+@utility text-stroke-* {
+  /* Largura do stroke */
+  -webkit-text-stroke-width: calc(--value(integer) * 0.5px);
+  -webkit-text-stroke-width: --value(--stroke-*, [*]);
+
+  /* Aqui está o segredo: --value(--color-*) captura a cor E o modificador de opacidade.
+     O Tailwind injeta automaticamente o valor com a opacidade se você usar o "/" no HTML.
+  */
+  --tw-stroke-color: --value(--color-*);
+  -webkit-text-stroke-color: var(--tw-stroke-color, currentColor);
+
+  &::selection {
+    /* Usamos a mesma cor do stroke no background da seleção */
+    background-color: var(--tw-stroke-color, black);
+    --tw-selection-color: --modifier(--color-*);
+    text-shadow: 0 0 0 var(--tw-selection-color, white);
+  }
+}
+
+/* Adicione no seu arquivo global.css ou module.css */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Força o container do Sonner a ser absoluto quando dentro do seu wrapper */
+[data-sonner-toaster] {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none; /* Permite clicar no que está atrás se necessário */
+}
+
+/* Garante que os toasts individuais possam ser clicados */
+[data-sonner-toast] {
+  pointer-events: auto;
+}
+
+/* Esconde a barra nativa se você estiver usando o ScrollWrapper */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* No seu styles.css */
+.mix-blend-difference {
+  mix-blend-mode: difference !important;
+  /* Força o navegador a não isolar este elemento */
+  isolation: isolate;
+}
