@@ -63,7 +63,7 @@ export function HeroSection() {
       </div>
 
       {/* Botão Scroll */}
-      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 lg:bottom-8">
+      <div className="absolute bottom-16 left-1/2 z-20 -translate-x-1/2 lg:bottom-8">
         <motion.a
           key="scroll"
           href="#"

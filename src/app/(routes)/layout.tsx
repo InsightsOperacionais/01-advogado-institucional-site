@@ -34,7 +34,7 @@ export default function RootLayout({
     >
       <RootProvider>
         {/* Background fixo do App */}
-        <div className="flex h-screen w-full flex-col items-center justify-center gap-0 bg-[#141414] p-2 font-sans lg:p-4">
+        <div className="flex h-screen w-full flex-col items-center justify-center bg-[#141414] p-2 lg:p-4">
           <ToasterContainer />
           {/* Container Principal (O "Card" do App) */}
           <div className="relative flex h-screen w-full flex-col overflow-hidden rounded-3xl text-[#141414] shadow-2xl">
@@ -51,7 +51,7 @@ export default function RootLayout({
             </div>
 
             {/* Logo Flutuante (se desejar manter fora do scroll) */}
-            <div className="pointer-events-none absolute top-0 left-0 z-140">
+            <div className="pointer-events-none absolute top-0 left-0 z-140 hidden sm:block">
               <Link href="/" className="pointer-events-auto">
                 <RoceriaLogo width={70} />
               </Link>

@@ -11,7 +11,7 @@ import { KitSubscriptionSection } from "./sections/home-subscription";
 // ===== HOME PAGE PRINCIPAL =====
 export default function HomePage() {
   return (
-    <div>
+    <div className="">
       <HomeMenuButtons />
       <section className="h-full">
         <HeroSection />
