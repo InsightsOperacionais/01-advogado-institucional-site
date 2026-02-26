@@ -1,55 +1,55 @@
-import { Footer } from "@/components/layout/footer/footer";
-import { HomeMenuButtons } from "../../../components/layout/io-mobile-menu/mounteds/home-mobile-menu";
-import { AboutSection } from "./sections/home-about";
-import { BestsellersSection } from "./sections/home-bestsallers";
-import { BrandSection } from "./sections/home-brand";
-import { ColectionSection } from "./sections/home-colections";
-import { HeroSection } from "./sections/home-hero";
-import { CollectionHighlightsSection } from "./sections/home-highlights";
-import { RecipesSection } from "./sections/home-recipes";
-import { KitSubscriptionSection } from "./sections/home-subscription";
+import { AreasExpertiseSection } from "./sections/areas-expertise";
+import { AuthorityNumbers } from "./sections/authority-numbers";
+import { FirmValuesSection } from "./sections/firm-values";
+import { FooterLaw } from "./sections/footer";
+import { HeroLawSection } from "./sections/hero-law";
+import { InsightsSection } from "./sections/insights";
+import { TheMindsSection } from "./sections/the-minds";
+import { TrustBar } from "./sections/trust-bar";
 
-// ===== HOME PAGE PRINCIPAL =====
-export default function HomePage() {
+export default function LawFirmPage() {
   return (
-    <div className="">
-      <HomeMenuButtons />
-      <section className="h-full">
-        <HeroSection />
+    <main className="bg-[#0a0a0b] selection:bg-[#c5a47e] selection:text-white">
+      {/* 01. IMPACTO IMEDIATO */}
+      <section className="h-screen">
+        <HeroLawSection />
       </section>
 
-      <div className="flex flex-col gap-60 bg-[#f1f1f1] px-4 py-40 lg:px-0">
-        <section className=" " id="bestsellers">
-          <BestsellersSection />
+      {/* 02. PROVA SOCIAL SILENCIOSA */}
+      <TrustBar />
+
+      <div className="flex flex-col gap-40 bg-[#f4f4f5] px-4 py-32 lg:px-0">
+        {/* 03. NÚMEROS DE AUTORIDADE */}
+        <section className="container mx-auto">
+          <AuthorityNumbers />
         </section>
 
-        <section className=" " id="collection ">
-          <ColectionSection />
+        {/* 04. O QUE FAZEMOS (EXPERTISE) */}
+        <section id="expertise" className="container mx-auto">
+          <AreasExpertiseSection />
         </section>
 
-        <section className=" ">
-          <CollectionHighlightsSection />
-        </section>
-
-        <section className="px-0 md:px-2">
-          <BrandSection />
-        </section>
-
-        <section className=" ">
-          <KitSubscriptionSection />
-        </section>
-
-        <section className=" ">
-          <RecipesSection />
+        {/* 05. QUEM FAZ (HUMANIZAÇÃO) */}
+        <section id="team" className="container mx-auto">
+          <TheMindsSection />
         </section>
       </div>
-      <section className=" ">
-        <AboutSection />
+
+      {/* 06. MANIFESTO (SECTION ESCURA) */}
+      <section
+        id="values"
+        className="rounded-t-[3rem] bg-[#0a0a0b] py-20 text-white lg:rounded-t-[5rem]"
+      >
+        <FirmValuesSection />
       </section>
 
-      <section className=" " id="footer">
-        <Footer />
+      {/* 07. CONHECIMENTO (SECTION CLARA) */}
+      <section className="rounded-b-[3rem] bg-[#f4f4f5] py-40 lg:rounded-b-[5rem]">
+        <InsightsSection />
       </section>
-    </div>
+
+      {/* 08. RODAPÉ E CONTATO */}
+      <FooterLaw />
+    </main>
   );
 }

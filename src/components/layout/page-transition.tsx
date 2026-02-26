@@ -8,6 +8,10 @@ import { ReactNode, useContext, useState } from "react";
 
 function FrozenRoute({ children }: { children: ReactNode }) {
   const context = useContext(LayoutRouterContext);
+  const isDev = process.env.NODE_ENV === "development";
+  // Em desenvolvimento não congele o contexto para não bloquear Fast Refresh/HMR.
+  if (isDev) return <>{children}</>;
+
   // Usa useState em vez de useRef - o estado é estável entre renders
   const [frozenContext] = useState(context);
 

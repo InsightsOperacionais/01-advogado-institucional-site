@@ -68,7 +68,7 @@ export function CustomScrollbar({
     <motion.div
       // Removemos as classes top-1 e bottom-1 e deixamos o container ocupar tudo
       // A lógica do OFFSET dentro do useTransform cuidará do espaçamento.
-      className="pointer-events-none absolute inset-y-0 right-0 z-50 w-1.5"
+      className="pointer-events-none absolute inset-y-2 right-0 z-50 mr-1 w-1"
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.3 }}
@@ -78,7 +78,7 @@ export function CustomScrollbar({
           height: thumbHeight,
           y: smoothY,
         }}
-        className="w-1.5 rounded-l-full bg-[#fbb725] shadow-sm"
+        className="w-0.75 rounded-full bg-[#c5a47e] shadow-sm"
       />
     </motion.div>
   );

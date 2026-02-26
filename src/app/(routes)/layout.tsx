@@ -1,65 +1,77 @@
+// app/layout.tsx ou app/(law)/layout.tsx
 import { Bitter, Open_Sans } from "next/font/google";
-import Link from "next/link";
 
 import { IoDrawerContent } from "@/components/layout/io-drawer/io-drawer";
 import { IoMenuContent } from "@/components/layout/io-menu/io-menu";
 import IoMobileMenu from "@/components/layout/io-mobile-menu/io-mobile-menu";
-import RoceriaLogo from "@/components/layout/logos";
 import Navbar from "@/components/layout/navbar/monted-navbar";
 import { PageTransition } from "@/components/layout/page-transition";
 import { ToasterContainer } from "@/components/layout/toaster-container";
 import { RootProvider } from "@/providers/root-provider";
 import { MainScrollArea } from "@/providers/scroll-context";
 
+// Tipografia de Autoridade
 const bitter = Bitter({
   subsets: ["latin"],
   variable: "--font-bitter",
   display: "swap",
 });
+
 const openSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-open-sans",
   display: "swap",
 });
 
-export default function RoceriaLayout({
+export default function LawFirmLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <div
-      className={`${bitter.variable} ${openSans.variable} font-sans selection:bg-[#fbb725] selection:text-[#141414]`}
+      className={`${bitter.variable} ${openSans.variable} font-sans text-[#0a0a0b] selection:bg-[#c5a47e] selection:text-[#0a0a0b]`}
     >
       <RootProvider>
-        {/* Background fixo do App */}
-        <div className="flex h-screen w-full flex-col items-center justify-center bg-[#141414] p-2 lg:p-4">
+        {/* Background fixo do App - Tom Noir Profundo */}
+        <div className="flex h-screen w-full flex-col items-center justify-center bg-[#020202] p-0">
           <ToasterContainer />
-          {/* Container Principal (O "Card" do App) */}
-          <div className="relative flex h-screen w-full flex-col overflow-hidden rounded-3xl text-[#141414] shadow-2xl">
-            {/* --- ELEMENTOS FIXOS (Ficam por cima do scroll) --- */}
+
+          {/* Container Principal (O "Card" do App - Estilo Apple/Moderno) */}
+          <div className="shadow-3xl relative flex h-screen w-full flex-col overflow-hidden bg-[#f4f4f5]">
+            {/* --- ELEMENTOS FIXOS (Sobre o Scroll) --- */}
             <IoDrawerContent />
             <IoMenuContent />
 
-            <div className="z-110 hidden md:block">
+            {/* Navbar Adaptada (Desktop) */}
+            <div className="z-[110] hidden md:block">
               <Navbar />
             </div>
 
-            <div className="z-110 md:hidden">
+            {/* Menu Mobile Adaptado */}
+            <div className="z-[110] md:hidden">
               <IoMobileMenu />
             </div>
 
-            {/* Logo Flutuante (se desejar manter fora do scroll) */}
-            <div className="pointer-events-none absolute top-0 left-0 z-140 hidden sm:block">
+            {/* Branding Flutuante (Logo Von Marins) */}
+            {/* <div className="pointer-events-none absolute top-10 left-10 z-[140] hidden sm:block">
               <Link href="/" className="pointer-events-auto">
-                <RoceriaLogo width={70} />
+                <div className="flex flex-col">
+                  <span className="font-bitter text-xl font-light tracking-[0.3em] text-white mix-blend-difference">
+                    VON{" "}
+                    <span className="font-black text-[#c5a47e]">MARINS</span>
+                  </span>
+                  <span className="text-[7px] font-bold tracking-[0.6em] text-[#c5a47e] uppercase">
+                    Advocacia
+                  </span>
+                </div>
               </Link>
-            </div>
+            </div> */}
 
-            {/* --- ÁREA SCROLLÁVEL --- */}
+            {/* --- ÁREA SCROLLÁVEL PRINCIPAL --- */}
             <MainScrollArea>
               <PageTransition>
-                <main className="flex min-h-[96vh] flex-col">{children}</main>
+                <main className="flex min-h-[100vh] flex-col">{children}</main>
               </PageTransition>
             </MainScrollArea>
           </div>

@@ -1,101 +1,84 @@
-// app/(projetos)/components/layout/navbar/monted-navbar.tsx (ATUALIZADO)
+// app/(projetos)/components/layout/navbar/law-navbar.tsx
 "use client";
 
 import { useScrollDirection } from "@/providers/scroll-context";
-import { useCart } from "@/providers/shop-context";
-import { AnimatePresence, motion } from "framer-motion";
-import { Bell, Menu, ShoppingBag, User } from "lucide-react";
+import { Calendar, Menu } from "lucide-react";
 import Link from "next/link";
-import { CartDrawerButton } from "../io-drawer/mounteds/cart-drawer";
-import { NotificationDrawerButton } from "../io-drawer/mounteds/notification-drawer";
-// Importando o novo MainMenuButton
 import { MainMenuButton } from "../io-menu/mounteds/menu-content";
-import { RoceriaButton } from "../roceria-button";
+import { LawButton } from "../law-button";
 
-// Componente Navbar que usa o contexto
 function NavbarContent() {
-  const { itemCount } = useCart();
   const isVisible = useScrollDirection();
 
   return (
     <>
-      {/* Container para os botões */}
+      {/* Branding Sutil na Esquerda (Sempre visível ou segue o isVisible) */}
       <div
-        className={`absolute top-5 right-5 flex w-fit items-center justify-between gap-2 transition-all duration-300 ease-in-out ${
+        className={`absolute top-8 left-8 z-50 transition-all duration-500 ${
           isVisible
-            ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-            : "pointer-events-none -translate-y-2 scale-95 opacity-0"
+            ? "translate-x-0 opacity-100"
+            : "pointer-events-none -translate-x-4 opacity-0"
         }`}
       >
-        <div className="flex flex-col items-end gap-2">
-          {/* Botão do Menu Principal - AGORA USA MainMenuButton */}
-          <MainMenuButton>
-            <RoceriaButton
-              variant="expandible"
-              size="default"
-              label="Menu"
-              icon={<Menu size={18} className="shrink-0" />}
-            />
-          </MainMenuButton>
-
-          {/* Botão de Minha Conta - Expandible */}
-          <Link href="/minha-conta">
-            <RoceriaButton
-              variant="expandible"
-              size="default"
-              label="Conta"
-              icon={<User size={18} className="shrink-0" />}
-            />
-          </Link>
-
-          {/* Botão de Notificações */}
-          <NotificationDrawerButton>
-            <RoceriaButton
-              variant="expandible"
-              size="default"
-              label="Notificações"
-              icon={<Bell size={18} className="shrink-0" />}
-            />
-          </NotificationDrawerButton>
-
-          {/* Botão do Carrinho com Badge */}
-          <CartDrawerButton>
-            <div className="relative">
-              <RoceriaButton
-                variant="expandible"
-                size="default"
-                label="Carrinho"
-                icon={
-                  <div className="relative flex items-center justify-center">
-                    <ShoppingBag size={18} className="shrink-0" />
-
-                    {/* Badge do Contador Dinâmico */}
-                    <AnimatePresence>
-                      {itemCount > 0 && (
-                        <motion.span
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          exit={{ scale: 0, opacity: 0 }}
-                          className="absolute -top-5 -right-5 flex size-5 items-center justify-center rounded-full bg-[#fbb725] text-[11px] leading-none font-bold text-[#141414] shadow-2xl ring-[#141414]"
-                        >
-                          {itemCount}
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                }
-              />
-            </div>
-          </CartDrawerButton>
-        </div>
+        <Link href="/" className="group">
+          <h1 className="font-bitter text-xl font-light tracking-[0.2em] text-white mix-blend-difference">
+            VON <span className="font-black text-[#c5a47e]">MARINS</span>
+          </h1>
+        </Link>
       </div>
 
-      {/* O IoMenuContent agora é renderizado separadamente no layout principal */}
+      {/* Container de Ações na Direita */}
+      <div
+        className={`absolute top-8 right-8 z-50 flex flex-col items-end gap-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isVisible
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-4 scale-95 opacity-0"
+        }`}
+      >
+        {/* 01. MENU PRINCIPAL (O mais importante) */}
+        <MainMenuButton>
+          <LawButton
+            variant="expandible"
+            size="default"
+            label="Menu"
+            icon={<Menu size={20} className="text-[#c5a47e]" />}
+          />
+        </MainMenuButton>
+
+        {/* 02. AGENDAR CONSULTA (Conversão Direta para /contato) */}
+        <Link href="/contato">
+          <LawButton
+            variant="expandible"
+            size="default"
+            label="Agendar"
+            icon={<Calendar size={18} />}
+          />
+        </Link>
+
+        {/* 03. PORTAL DO CLIENTE (Substitui 'Minha Conta') */}
+        {/* <Link href="/login">
+          <LawButton
+            variant="expandible"
+            size="default"
+            label="Área Restrita"
+            icon={<User size={18} />}
+          />
+        </Link> */}
+
+        {/* 04. BUSCA JURÍDICA (Opcional para site com muitos Insights) */}
+        {/* <Link href="https://wa.me/seunumeroaqui">
+          <LawButton
+            variant="expandible"
+            size="default"
+            label="Whatsapp"
+            icon={<FaWhatsapp size={18} />}
+          />
+        </Link> */}
+      </div>
     </>
   );
 }
 
-// Componente principal
 export default function Navbar() {
   return <NavbarContent />;
 }

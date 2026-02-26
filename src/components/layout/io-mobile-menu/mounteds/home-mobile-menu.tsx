@@ -1,7 +1,7 @@
 "use client";
 
 import { MobileAction, useUIOverlay } from "@/providers/ui-overlay-context";
-import { Bell, Menu, ShoppingCart, User } from "lucide-react";
+import { Bell, Menu, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
@@ -35,15 +35,6 @@ export function HomeMenuButtons() {
         type: "drawer",
         onClick: () => {
           openDrawer("notifications");
-        },
-        className: "bg-[#141414] text-[#fbb725] border-[#fbb725]/30",
-      },
-      {
-        icon: <ShoppingCart className="h-5 w-5" />,
-        label: "Carrinho",
-        type: "drawer",
-        onClick: () => {
-          openDrawer("cart");
         },
         className: "bg-[#141414] text-[#fbb725] border-[#fbb725]/30",
       },

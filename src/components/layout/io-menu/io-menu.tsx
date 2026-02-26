@@ -6,7 +6,7 @@ import { useUIOverlay } from "@/providers/ui-overlay-context";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { X } from "lucide-react";
 import { ReactNode, useEffect } from "react";
-import { RoceriaButton } from "../roceria-button";
+import { LawButton } from "../law-button";
 import { MENU_REGISTRY } from "./menu-registry";
 export { IoMenuSection } from "./io-menu-primitives";
 
@@ -66,13 +66,9 @@ export function IoMenuContent() {
     };
   }, [isOpen]);
 
-  if (!activeMenuConfig) return null;
-
-  const {
-    component: Component,
-    origin = "top-right",
-    theme = "light",
-  } = activeMenuConfig;
+  const origin = activeMenuConfig?.origin ?? "top-right";
+  const theme = activeMenuConfig?.theme ?? "light";
+  const Component = activeMenuConfig?.component;
 
   const themeClasses = {
     light: {
@@ -93,7 +89,7 @@ export function IoMenuContent() {
 
   // Variantes de animação para o menu circular
   const menuVariants = (origin: string = "top-right"): Variants => {
-    let clipPathOrigin = "98% 5%"; // top-right (padrão)
+    let clipPathOrigin = "97% 6.5%"; // top-right (padrão)
 
     if (origin === "top-left") {
       clipPathOrigin = "3% 6%";
@@ -133,7 +129,7 @@ export function IoMenuContent() {
 
   return (
     <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
-      {isOpen && (
+      {isOpen && activeMenuConfig && Component && (
         <motion.div
           key={`menu-${activeMenuConfig.id}`}
           variants={menuVariants(origin)}
@@ -146,8 +142,8 @@ export function IoMenuContent() {
           )}
         >
           {/* Botão de Fechar com RoceriaButton */}
-          <div className="absolute top-5 right-5 z-130">
-            <RoceriaButton
+          <div className="absolute top-8 right-8 z-130">
+            <LawButton
               variant="expandible"
               size="default"
               label="Fechar"
