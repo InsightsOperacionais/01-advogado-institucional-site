@@ -36,32 +36,6 @@ export function HeroSection() {
       {/* Overlay escuro para melhor contraste - tom mais forte que o original */}
       <div className="absolute inset-0 z-20 bg-[#141414]/50"></div>
 
-      {/* Botões de Redes Sociais - Mantendo estilo mas com cores da marca */}
-      <div className="absolute top-1/2 right-5 z-20 hidden -translate-y-1/2 flex-col gap-5 lg:right-3 lg:flex">
-        {[
-          { Icon: Instagram, delay: 3.4 },
-          { Icon: Facebook, delay: 3.6 },
-          { Icon: Twitter, delay: 3.8 },
-        ].map((social, index) => (
-          <motion.a
-            key={index}
-            href="#"
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              delay: social.delay,
-            }}
-            className="flex size-10 items-center justify-center rounded-full border border-[#fbb725]/30 bg-[#141414]/50 text-[#fbb725] backdrop-blur-md transition-colors hover:bg-[#fbb725] hover:text-[#141414] lg:size-12"
-          >
-            <social.Icon className="size-4 lg:size-5" />
-          </motion.a>
-        ))}
-      </div>
-
       {/* Botão Scroll */}
       <div className="absolute bottom-16 left-1/2 z-20 -translate-x-1/2 lg:bottom-8">
         <motion.a
@@ -94,7 +68,7 @@ export function HeroSection() {
 
       {/* Conteúdo principal - Tema rural */}
       <div className="relative z-20 w-full max-w-7xl px-5 text-[#f1f1f1]">
-        <div className="font-bitter text-3xl lg:text-4xl">
+        <div className="font-bitter text-3xl font-extralight lg:text-5xl">
           <ElementReveal delay={2.1} className="lg:ml-38">
             O sabor
           </ElementReveal>{" "}
@@ -109,7 +83,7 @@ export function HeroSection() {
           </ElementReveal>
         </div>
 
-        <ElementReveal delay={2.7} className="mt-5 p-2 lg:mt-0">
+        <ElementReveal delay={2.7} className="mt-5 p-2">
           <Link
             href="/shop"
             className="flex h-10 w-32 items-center justify-center rounded-full bg-[#fbb725] text-sm font-bold text-[#141414] shadow-lg transition-transform hover:scale-105 hover:bg-[#fbb725]/80 active:scale-95 lg:w-42"
@@ -146,6 +120,32 @@ export function HeroSection() {
               Receitas tradicionais, produção familiar e ingredientes
               selecionados.
             </ElementReveal>
+
+            {/* Botões de Redes Sociais - Mantendo estilo mas com cores da marca */}
+            <div className="mt-6 flex gap-5">
+              {[
+                { Icon: Instagram, delay: 3.4 },
+                { Icon: Facebook, delay: 3.6 },
+                { Icon: Twitter, delay: 3.8 },
+              ].map((social, index) => (
+                <motion.a
+                  key={index}
+                  href="#"
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    delay: social.delay,
+                  }}
+                  className="flex size-10 items-center justify-center rounded-full border border-[#fbb725]/30 bg-[#141414]/50 text-[#fbb725] backdrop-blur-md transition-colors hover:bg-[#fbb725] hover:text-[#141414] lg:size-12"
+                >
+                  <social.Icon className="size-4 lg:size-5" />
+                </motion.a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

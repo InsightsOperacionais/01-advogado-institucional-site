@@ -1,5 +1,5 @@
 // data/adapters/product-adapter.ts
-import { CardProduct, Product } from "../types/shop";
+import type { CardProduct, Product } from "../types/shop-contracts";
 
 export function adaptProductToCardProduct(product: Product): CardProduct {
   // Encontrar a variação com menor preço

@@ -2,47 +2,28 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useDrawerStore } from "@/providers/drawer-context";
+import { useUIOverlay } from "@/providers/ui-overlay-context";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { ReactNode, useEffect } from "react";
-
-// ===== DRAWER BUTTON =====
-interface IoDrawerButtonProps {
-  drawerId: string;
-  children: ReactNode;
-  className?: string;
-  onClick?: () => void;
-  drawerProps?: any;
-}
-
-export function IoDrawerButton({
-  drawerId,
-  children,
-  className = "",
-  onClick,
-  drawerProps = {},
-}: IoDrawerButtonProps) {
-  const { openDrawer } = useDrawerStore();
-
-  const handleClick = () => {
-    onClick?.();
-    openDrawer(drawerId, drawerProps);
-  };
-
-  return (
-    <div
-      onClick={handleClick}
-      className={cn("inline-block cursor-pointer", className)}
-    >
-      {children}
-    </div>
-  );
-}
+import { useEffect } from "react";
+import { DRAWER_REGISTRY } from "./drawer-registry";
+export {
+  IoDrawerButton,
+  IoDrawerContentSection,
+  IoDrawerFooter,
+} from "./io-drawer-primitives";
 
 // ===== DRAWER CONTENT =====
 export function IoDrawerContent() {
-  const { isOpen, activeDrawerConfig, activeDrawerProps, closeDrawer } =
-    useDrawerStore();
+  const {
+    state: { activeDrawer },
+    closeDrawer,
+  } = useUIOverlay();
+
+  const isOpen = Boolean(activeDrawer);
+  const activeDrawerConfig = activeDrawer
+    ? DRAWER_REGISTRY[activeDrawer.id]
+    : null;
+  const activeDrawerProps = activeDrawer?.props ?? {};
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
@@ -51,14 +32,10 @@ export function IoDrawerContent() {
     };
   }, [isOpen]);
 
-  if (!activeDrawerConfig) return null;
-
-  const {
-    component: Component,
-    title,
-    direction = "right",
-    theme = "light",
-  } = activeDrawerConfig;
+  const title = activeDrawerConfig?.title;
+  const direction = activeDrawerConfig?.direction ?? "right";
+  const theme = activeDrawerConfig?.theme ?? "light";
+  const Component = activeDrawerConfig?.component;
 
   const themeClasses = {
     light: {
@@ -100,7 +77,7 @@ export function IoDrawerContent() {
 
   return (
     <AnimatePresence mode="wait">
-      {isOpen && (
+      {isOpen && activeDrawerConfig && Component && (
         <>
           {/* Backdrop com animação */}
           <motion.div
@@ -209,45 +186,5 @@ export function IoDrawerContent() {
         </>
       )}
     </AnimatePresence>
-  );
-}
-
-// Seção de conteúdo scrollável
-interface IoDrawerContentSectionProps {
-  children: ReactNode;
-  className?: string;
-  theme?: "light" | "dark";
-}
-
-export function IoDrawerContentSection({
-  children,
-  className = "",
-  theme = "light",
-}: IoDrawerContentSectionProps) {
-  const textColor = theme === "light" ? "text-[#141414]" : "text-[#f1f1f1]";
-
-  return (
-    <div className={cn("h-full overflow-y-auto", textColor, className)}>
-      {children}
-    </div>
-  );
-}
-
-// Rodapé do Drawer
-interface IoDrawerFooterProps {
-  children: ReactNode;
-  className?: string;
-  theme?: "light" | "dark";
-}
-
-export function IoDrawerFooter({
-  children,
-  className = "",
-  theme = "light",
-}: IoDrawerFooterProps) {
-  return (
-    <div className={cn("border-t border-[#fbb725]/10", className)}>
-      {children}
-    </div>
   );
 }

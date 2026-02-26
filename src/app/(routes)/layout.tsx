@@ -1,7 +1,6 @@
 import { Bitter, Open_Sans } from "next/font/google";
 import Link from "next/link";
 
-import { Footer } from "@/components/layout/footer/footer";
 import { IoDrawerContent } from "@/components/layout/io-drawer/io-drawer";
 import { IoMenuContent } from "@/components/layout/io-menu/io-menu";
 import IoMobileMenu from "@/components/layout/io-mobile-menu/io-mobile-menu";
@@ -23,7 +22,7 @@ const openSans = Open_Sans({
   display: "swap",
 });
 
-export default function RootLayout({
+export default function RoceriaLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -60,10 +59,7 @@ export default function RootLayout({
             {/* --- ÁREA SCROLLÁVEL --- */}
             <MainScrollArea>
               <PageTransition>
-                <main className="flex min-h-screen flex-col">
-                  {children}
-                  <Footer />
-                </main>
+                <main className="flex min-h-[96vh] flex-col">{children}</main>
               </PageTransition>
             </MainScrollArea>
           </div>

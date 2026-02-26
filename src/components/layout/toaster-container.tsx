@@ -1,83 +1,114 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  AlertCircle,
+  CheckCircle2,
+  Info,
+  Loader2,
+  Wheat,
+  XCircle,
+} from "lucide-react";
 import { Toaster, useSonner } from "sonner";
 
 export function ToasterContainer() {
   const { toasts } = useSonner();
 
-  const colorMap: Record<string, string> = {
-    success: "from-green-500 to-emerald-600",
-    error: "from-red-500 to-rose-600",
-    warning: "from-amber-400 to-orange-500",
-    info: "from-blue-500 to-cyan-600",
-    loading: "from-purple-500 to-indigo-600",
-    default: "from-zinc-700 to-zinc-800",
+  // Mapeamento expandido para incluir as cores de borda e progresso
+  const configMap: Record<
+    string,
+    { icon: any; color: string; border: string; bar: string }
+  > = {
+    success: {
+      icon: CheckCircle2,
+      color: "text-green-500",
+      border: "border-green-500/30",
+      bar: "bg-green-500/40",
+    },
+    error: {
+      icon: XCircle,
+      color: "text-red-500",
+      border: "border-red-500/30",
+      bar: "bg-red-500/40",
+    },
+    warning: {
+      icon: AlertCircle,
+      color: "text-[#fbb725]",
+      border: "border-[#fbb725]/30",
+      bar: "bg-[#fbb725]/40",
+    },
+    info: {
+      icon: Info,
+      color: "text-blue-500",
+      border: "border-blue-500/30",
+      bar: "bg-blue-500/40",
+    },
+    loading: {
+      icon: Loader2,
+      color: "text-[#fbb725]",
+      border: "border-[#fbb725]/30",
+      bar: "bg-[#fbb725]/40",
+    },
+    default: {
+      icon: Wheat,
+      color: "text-[#fbb725]",
+      border: "border-[#fbb725]/30",
+      bar: "bg-[#fbb725]/40",
+    },
   };
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col items-center">
       <AnimatePresence initial={false}>
         {toasts.map((t) => {
-          const bgGradient = colorMap[t.type as string] || colorMap.default;
+          const config = configMap[t.type as string] || configMap.default;
+          const Icon = config.icon;
 
           return (
             <motion.div
               key={t.id}
               layout
-              // Definimos a origem no topo para ele "subir" ao fechar
               style={{ transformOrigin: "top" }}
-              initial={{
-                height: 0,
-                opacity: 0,
-                scaleY: 1,
-                marginBottom: 0,
-              }}
+              initial={{ height: 0, opacity: 0, scale: 0.9, marginBottom: 0 }}
               animate={{
                 height: "auto",
                 opacity: 1,
-                scaleY: 1,
+                scale: 1,
                 marginBottom: 12,
               }}
               exit={{
                 height: 0,
                 opacity: 0,
-                scaleY: 0, // Achata apenas a altura até sumir
+                scale: 0.9,
                 marginBottom: 0,
-                transition: {
-                  height: { duration: 0.3 },
-                  scaleY: { duration: 0.3 },
-                  opacity: { duration: 0.6 },
-                },
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 30,
-                mass: 1,
+                transition: { duration: 0.2 },
               }}
               className="w-full overflow-hidden"
             >
+              {/* Borda dinâmica via config.border */}
               <div
-                className={`rounded-3xl bg-linear-to-r p-2 shadow-xl ${bgGradient}`}
+                className={cn(
+                  "relative overflow-hidden rounded-full border-2 bg-[#141414] p-2 pr-6 shadow-2xl backdrop-blur-xl transition-colors duration-300",
+                  config.border,
+                )}
               >
-                <div className="flex items-center gap-3 text-white">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-md">
-                    {t.type === "success" && "✓"}
-                    {t.type === "error" && "✕"}
-                    {t.type === "warning" && "⚠"}
-                    {t.type === "info" && "ℹ"}
-                    {t.type === "loading" && (
-                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                    )}
+                <div className="flex items-center gap-3">
+                  {/* Container do Ícone */}
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5">
+                    <Icon
+                      size={18}
+                      className={cn(
+                        config.color,
+                        t.type === "loading" && "animate-spin",
+                      )}
+                    />
                   </div>
 
-                  <div className="flex gap-3 overflow-hidden">
-                    <span className="text-sm leading-tight font-bold">
-                      {typeof t.title === "function" ? t.title() : t.title}
-                    </span>
+                  {/* Conteúdo de Texto Editorial */}
+                  <div className="flex items-center gap-5 py-1">
                     {t.description && (
-                      <span className="text-xs opacity-90">
+                      <span className="truncate text-[9px] font-black tracking-[0.2em] text-[#f1f1f1]/80 uppercase">
                         {typeof t.description === "function"
                           ? t.description()
                           : t.description}
@@ -85,6 +116,14 @@ export function ToasterContainer() {
                     )}
                   </div>
                 </div>
+
+                {/* Barra de progresso dinâmica via config.bar */}
+                {/* <motion.div
+                  initial={{ width: "100%" }}
+                  animate={{ width: "0%" }}
+                  transition={{ duration: 4, ease: "linear" }}
+                  className={cn("absolute bottom-1 left-0 h-[2px]", config.bar)}
+                /> */}
               </div>
             </motion.div>
           );

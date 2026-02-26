@@ -18,18 +18,104 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
 
+import { Footer } from "@/components/layout/footer/footer";
 import { FilterDrawerButton } from "@/components/layout/io-drawer/mounteds/filter-drawer";
 import { adaptProductsToCardProducts } from "@/data/adapters/product-adapter";
 import { useCategories } from "@/data/hooks/use-categories";
 import { useProducts } from "@/data/hooks/use-products";
-import { CardProduct, ProductFilters } from "@/data/types/shop";
+import type { CardProduct, ProductFilters } from "@/data/types/shop-contracts";
 import { DEFAULT_FILTERS, SORT_OPTIONS } from "@/data/utils/constants";
 import { Card } from "../../../components/layout/product-card";
 
 type GridCols = 2 | 3 | 4;
+type ViewMode = "grid" | "list";
+
+const QUERY_PARAM_KEYS = {
+  categoria: "categoria",
+  busca: "busca",
+  ordenacao: "ordenacao",
+  precoMin: "precoMin",
+  precoMax: "precoMax",
+  destaque: "destaque",
+  artesanal: "artesanal",
+  defumado: "defumado",
+  favoritos: "favoritos",
+  view: "view",
+  cols: "cols",
+} as const;
+
+const VALID_SORT_OPTIONS = new Set<string>(
+  SORT_OPTIONS.map((option) => option.id),
+);
+
+const normalizeCategoryValue = (value: string) =>
+  value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+const isTruthyParam = (value: string | null) => {
+  if (!value) return false;
+  const normalized = value.trim().toLowerCase();
+  return ["1", "true", "yes", "on", "sim"].includes(normalized);
+};
+
+const sanitizePrice = (value: string | null, fallback: number) => {
+  if (!value) return fallback;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.max(
+    DEFAULT_FILTERS.minPrice,
+    Math.min(parsed, DEFAULT_FILTERS.maxPrice),
+  );
+};
+
+function parseShopParams(searchParams: Pick<URLSearchParams, "get">) {
+  const rawMinPrice = sanitizePrice(
+    searchParams.get(QUERY_PARAM_KEYS.precoMin),
+    DEFAULT_FILTERS.minPrice,
+  );
+  const rawMaxPrice = sanitizePrice(
+    searchParams.get(QUERY_PARAM_KEYS.precoMax),
+    DEFAULT_FILTERS.maxPrice,
+  );
+
+  const precoMin = Math.min(rawMinPrice, rawMaxPrice);
+  const precoMax = Math.max(rawMinPrice, rawMaxPrice);
+
+  const rawSort = searchParams.get(QUERY_PARAM_KEYS.ordenacao);
+  const ordenacao =
+    rawSort && VALID_SORT_OPTIONS.has(rawSort) ? rawSort : "relevancia";
+
+  const rawView = searchParams.get(QUERY_PARAM_KEYS.view);
+  const viewMode: ViewMode = rawView === "list" ? "list" : "grid";
+
+  const rawGridCols = Number(searchParams.get(QUERY_PARAM_KEYS.cols));
+  const gridCols: GridCols =
+    rawGridCols === 2 || rawGridCols === 4 ? rawGridCols : 3;
+
+  return {
+    categoria: searchParams.get(QUERY_PARAM_KEYS.categoria)?.trim() || "todos",
+    busca: searchParams.get(QUERY_PARAM_KEYS.busca)?.trim() || "",
+    ordenacao,
+    precoMin,
+    precoMax,
+    apenasDestaques: isTruthyParam(searchParams.get(QUERY_PARAM_KEYS.destaque)),
+    apenasArtesanal: isTruthyParam(
+      searchParams.get(QUERY_PARAM_KEYS.artesanal),
+    ),
+    apenasDefumado: isTruthyParam(searchParams.get(QUERY_PARAM_KEYS.defumado)),
+    apenasFavoritos: isTruthyParam(
+      searchParams.get(QUERY_PARAM_KEYS.favoritos),
+    ),
+    viewMode,
+    gridCols,
+  };
+}
 
 // Componente FiltrosAtivos
 const FiltrosAtivos = ({
@@ -174,22 +260,39 @@ const FiltrosAtivos = ({
   );
 };
 
-export default function ShopPage() {
+function ShopPageContent() {
   const router = useRouter();
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("todos");
-  const [ordenacao, setOrdenacao] = useState("relevancia");
-  const [busca, setBusca] = useState("");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [gridCols, setGridCols] = useState<GridCols>(3);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialParams = useMemo(
+    () => parseShopParams(searchParams),
+    [searchParams],
+  );
+
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState(
+    initialParams.categoria,
+  );
+  const [ordenacao, setOrdenacao] = useState(initialParams.ordenacao);
+  const [busca, setBusca] = useState(initialParams.busca);
+  const [viewMode, setViewMode] = useState<ViewMode>(initialParams.viewMode);
+  const [gridCols, setGridCols] = useState<GridCols>(initialParams.gridCols);
   const [favoritos, setFavoritos] = useState<string[]>([]);
 
   // Filtros avançados
-  const [precoMin, setPrecoMin] = useState(DEFAULT_FILTERS.minPrice);
-  const [precoMax, setPrecoMax] = useState(DEFAULT_FILTERS.maxPrice);
-  const [apenasDestaques, setApenasDestaques] = useState(false);
-  const [apenasArtesanal, setApenasArtesanal] = useState(false);
-  const [apenasDefumado, setApenasDefumado] = useState(false);
-  const [apenasFavoritos, setApenasFavoritos] = useState(false);
+  const [precoMin, setPrecoMin] = useState(initialParams.precoMin);
+  const [precoMax, setPrecoMax] = useState(initialParams.precoMax);
+  const [apenasDestaques, setApenasDestaques] = useState(
+    initialParams.apenasDestaques,
+  );
+  const [apenasArtesanal, setApenasArtesanal] = useState(
+    initialParams.apenasArtesanal,
+  );
+  const [apenasDefumado, setApenasDefumado] = useState(
+    initialParams.apenasDefumado,
+  );
+  const [apenasFavoritos, setApenasFavoritos] = useState(
+    initialParams.apenasFavoritos,
+  );
 
   // Buscar categorias
   const { data: categoriesData, isLoading: categoriesLoading } =
@@ -199,6 +302,108 @@ export default function ShopPage() {
     [categoriesData],
   );
 
+  const categoriaSelecionadaResolvida = useMemo(() => {
+    if (categoriaSelecionada === "todos") return null;
+
+    const normalizedSelected = normalizeCategoryValue(categoriaSelecionada);
+
+    return (
+      categories.find((cat: { id: string; slug: string; name: string }) => {
+        if (cat.id === categoriaSelecionada) return true;
+        if (cat.slug === categoriaSelecionada) return true;
+        return normalizeCategoryValue(cat.name) === normalizedSelected;
+      }) ?? null
+    );
+  }, [categoriaSelecionada, categories]);
+
+  useEffect(() => {
+    if (!categoriaSelecionadaResolvida) return;
+    if (categoriaSelecionadaResolvida.id === categoriaSelecionada) return;
+    setCategoriaSelecionada(categoriaSelecionadaResolvida.id);
+  }, [categoriaSelecionada, categoriaSelecionadaResolvida]);
+
+  const filterUrlParams = useMemo(() => {
+    const params = new URLSearchParams();
+
+    if (categoriaSelecionada !== "todos") {
+      if (categoriaSelecionadaResolvida?.slug) {
+        params.set(
+          QUERY_PARAM_KEYS.categoria,
+          categoriaSelecionadaResolvida.slug,
+        );
+      } else {
+        params.set(QUERY_PARAM_KEYS.categoria, categoriaSelecionada);
+      }
+    }
+
+    if (busca.trim()) {
+      params.set(QUERY_PARAM_KEYS.busca, busca.trim());
+    }
+
+    if (ordenacao !== "relevancia") {
+      params.set(QUERY_PARAM_KEYS.ordenacao, ordenacao);
+    }
+
+    if (precoMin > DEFAULT_FILTERS.minPrice) {
+      params.set(QUERY_PARAM_KEYS.precoMin, String(precoMin));
+    }
+
+    if (precoMax < DEFAULT_FILTERS.maxPrice) {
+      params.set(QUERY_PARAM_KEYS.precoMax, String(precoMax));
+    }
+
+    if (apenasDestaques) {
+      params.set(QUERY_PARAM_KEYS.destaque, "1");
+    }
+
+    if (apenasArtesanal) {
+      params.set(QUERY_PARAM_KEYS.artesanal, "1");
+    }
+
+    if (apenasDefumado) {
+      params.set(QUERY_PARAM_KEYS.defumado, "1");
+    }
+
+    if (apenasFavoritos) {
+      params.set(QUERY_PARAM_KEYS.favoritos, "1");
+    }
+
+    if (viewMode === "list") {
+      params.set(QUERY_PARAM_KEYS.view, "list");
+    }
+
+    if (gridCols !== 3) {
+      params.set(QUERY_PARAM_KEYS.cols, String(gridCols));
+    }
+
+    return params;
+  }, [
+    apenasArtesanal,
+    apenasDefumado,
+    apenasDestaques,
+    apenasFavoritos,
+    busca,
+    categoriaSelecionada,
+    categoriaSelecionadaResolvida,
+    gridCols,
+    ordenacao,
+    precoMax,
+    precoMin,
+    viewMode,
+  ]);
+
+  useEffect(() => {
+    if (pathname !== "/shop") return;
+
+    const current = searchParams.toString();
+    const next = filterUrlParams.toString();
+
+    if (current === next) return;
+
+    const href = next ? `/shop?${next}` : "/shop";
+    router.replace(href);
+  }, [filterUrlParams, pathname, router, searchParams]);
+
   // Preparar filtros para a API
   const filters: ProductFilters = useMemo(() => {
     const f: ProductFilters = {
@@ -206,7 +411,11 @@ export default function ShopPage() {
     };
 
     if (categoriaSelecionada !== "todos") {
-      f.categoryId = categoriaSelecionada;
+      if (categoriaSelecionadaResolvida) {
+        f.categoryId = categoriaSelecionadaResolvida.id;
+      } else {
+        f.categorySlug = categoriaSelecionada;
+      }
     }
 
     if (precoMin > DEFAULT_FILTERS.minPrice) {
@@ -231,6 +440,7 @@ export default function ShopPage() {
 
     return f;
   }, [
+    categoriaSelecionadaResolvida,
     categoriaSelecionada,
     precoMin,
     precoMax,
@@ -723,5 +933,18 @@ export default function ShopPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <>
+      <Suspense fallback={<div className="min-h-screen bg-[#f1f1f1]" />}>
+        <ShopPageContent />
+      </Suspense>
+      <section className=" " id="footer">
+        <Footer />
+      </section>
+    </>
   );
 }

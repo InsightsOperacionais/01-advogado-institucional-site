@@ -3,7 +3,6 @@
 
 import { DEFAULT_FILTERS } from "@/data/utils/constants";
 import { cn } from "@/lib/utils";
-import { useRegisterDrawer } from "@/providers/drawer-context";
 import {
   ArrowRight,
   Award,
@@ -20,13 +19,10 @@ import {
   IoDrawerButton,
   IoDrawerContentSection,
   IoDrawerFooter,
-} from "../io-drawer";
+} from "../io-drawer-primitives";
 
 // ===== CONFIGURAÇÃO DO DRAWER =====
 const DRAWER_ID = "filters";
-const DRAWER_TITLE = "Filtros";
-const DRAWER_THEME = "light";
-const DRAWER_DIRECTION = "right";
 
 // ===== CONTEÚDO DO DRAWER =====
 export interface FilterDrawerContentProps {
@@ -59,7 +55,7 @@ export interface FilterDrawerContentProps {
   theme?: "light" | "dark";
 }
 
-function FilterDrawerContent(props: FilterDrawerContentProps) {
+export function FilterDrawerContent(props: FilterDrawerContentProps) {
   const {
     ordenacao,
     setOrdenacao,
@@ -356,15 +352,6 @@ export function FilterDrawerButton({
   className,
   drawerProps,
 }: FilterDrawerButtonProps) {
-  // Registra o drawer automaticamente quando o botão é montado
-  useRegisterDrawer({
-    id: DRAWER_ID,
-    component: FilterDrawerContent,
-    title: DRAWER_TITLE,
-    theme: DRAWER_THEME,
-    direction: DRAWER_DIRECTION,
-  });
-
   return (
     <IoDrawerButton
       drawerId={DRAWER_ID}

@@ -1,3 +1,4 @@
+import { Footer } from "@/components/layout/footer/footer";
 import { HomeMenuButtons } from "../../../components/layout/io-mobile-menu/mounteds/home-mobile-menu";
 import { AboutSection } from "./sections/home-about";
 import { BestsellersSection } from "./sections/home-bestsallers";
@@ -44,6 +45,10 @@ export default function HomePage() {
       </div>
       <section className=" ">
         <AboutSection />
+      </section>
+
+      <section className=" " id="footer">
+        <Footer />
       </section>
     </div>
   );

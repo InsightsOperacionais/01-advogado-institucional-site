@@ -1,21 +1,11 @@
-import { API_CONFIG } from "../config";
-import { ProductCategory } from "../types/shop";
-import { API_ENDPOINTS, CACHE_TIMES } from "../utils/constants";
+import { getCategoryAction } from "@/data/actions/shop-actions";
+import type { ProductCategory } from "@/data/types/shop-contracts";
 
 export async function fetchCategory(
-  id: string,
+  idOrSlug: string,
 ): Promise<ProductCategory | null> {
   try {
-    const res = await fetch(
-      `${API_CONFIG.baseURL}${API_ENDPOINTS.CATEGORY(id)}`,
-      {
-        headers: API_CONFIG.headers,
-        next: { revalidate: CACHE_TIMES.CATEGORIES },
-      },
-    );
-
-    if (!res.ok) return null;
-    return res.json();
+    return await getCategoryAction(idOrSlug);
   } catch {
     return null;
   }

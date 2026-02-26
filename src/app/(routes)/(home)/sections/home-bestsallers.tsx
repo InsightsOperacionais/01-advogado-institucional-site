@@ -30,9 +30,9 @@ export function BestsellersSection() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Buscar produtos com filtro de destaque
+  // Buscar produtos da collection "favoritos"
   const { data, isLoading, error } = useProducts({
-    destaque: true,
+    collectionSlug: "favoritos",
     limit: 25,
   });
 

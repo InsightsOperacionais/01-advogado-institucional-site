@@ -1,16 +1,14 @@
 "use client";
 
-import { useRegisterMenu } from "@/providers/menu-context";
+import { useUIOverlay } from "@/providers/ui-overlay-context";
 import { motion } from "framer-motion";
 import { ArrowRight, Facebook, Instagram } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { ElementReveal } from "../../element-reveal";
-import { IoMenuButton, IoMenuSection } from "../io-menu";
+import { IoMenuSection } from "../io-menu-primitives";
 
 const MENU_ID = "main-menu";
-const MENU_ORIGIN = "top-right";
-const MENU_THEME = "dark";
 
 interface MainMenuContentProps {
   theme?: "light" | "dark";
@@ -19,7 +17,7 @@ interface MainMenuContentProps {
 }
 
 const links = [
-  { id: "01", name: "Início", href: "/roceria" },
+  { id: "01", name: "Início", href: "/" },
   { id: "02", name: "Queijos Artesanais", href: "/shop" },
   { id: "03", name: "Embutidos Defumados", href: "/shop/embutidos" },
   { id: "04", name: "Temperos & Molhos", href: "/shop/temperos" },
@@ -155,16 +153,16 @@ export function MainMenuButton({
   children?: ReactNode;
   className?: string;
 }) {
-  useRegisterMenu({
-    id: MENU_ID,
-    component: MainMenuContent,
-    origin: MENU_ORIGIN,
-    theme: MENU_THEME,
-  });
+  const { openMenu } = useUIOverlay();
 
   return (
-    <IoMenuButton menuId={MENU_ID} className={className}>
+    <div
+      className={className}
+      onClick={() => {
+        openMenu(MENU_ID);
+      }}
+    >
       {children}
-    </IoMenuButton>
+    </div>
   );
 }

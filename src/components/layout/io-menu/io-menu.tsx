@@ -1,12 +1,14 @@
-// components/layout/io-menu/io-menu.tsx (ATUALIZADO com Zustand)
+// components/layout/io-menu/io-menu.tsx
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useMenuStore } from "@/providers/menu-context";
+import { useUIOverlay } from "@/providers/ui-overlay-context";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { X } from "lucide-react";
 import { ReactNode, useEffect } from "react";
 import { RoceriaButton } from "../roceria-button";
+import { MENU_REGISTRY } from "./menu-registry";
+export { IoMenuSection } from "./io-menu-primitives";
 
 // ===== MENU BUTTON =====
 interface IoMenuButtonProps {
@@ -24,10 +26,14 @@ export function IoMenuButton({
   onClick,
   menuProps = {},
 }: IoMenuButtonProps) {
-  const { openMenu } = useMenuStore();
+  const { openMenu } = useUIOverlay();
 
   const handleClick = () => {
     onClick?.();
+    if (!MENU_REGISTRY[menuId]) {
+      console.warn(`Menu with id "${menuId}" not registered`);
+      return;
+    }
     openMenu(menuId, menuProps);
   };
 
@@ -43,8 +49,14 @@ export function IoMenuButton({
 
 // ===== MENU CONTENT =====
 export function IoMenuContent() {
-  const { isOpen, activeMenuConfig, activeMenuProps, closeMenu } =
-    useMenuStore();
+  const {
+    state: { activeMenu },
+    closeMenu,
+  } = useUIOverlay();
+
+  const isOpen = Boolean(activeMenu);
+  const activeMenuConfig = activeMenu ? MENU_REGISTRY[activeMenu.id] : null;
+  const activeMenuProps = activeMenu?.props ?? {};
 
   useEffect(() => {
     // Controla o scroll do body quando o menu está aberto
@@ -149,26 +161,5 @@ export function IoMenuContent() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
-}
-
-// ===== MENU SECTION =====
-interface IoMenuSectionProps {
-  children: ReactNode;
-  className?: string;
-  theme?: "light" | "dark";
-}
-
-export function IoMenuSection({
-  children,
-  className = "",
-  theme = "light",
-}: IoMenuSectionProps) {
-  const textColor = theme === "light" ? "text-[#141414]" : "text-[#f1f1f1]";
-
-  return (
-    <div className={cn("h-full w-full overflow-y-auto", textColor, className)}>
-      {children}
-    </div>
   );
 }

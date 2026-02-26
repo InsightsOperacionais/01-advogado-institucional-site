@@ -2,20 +2,16 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useRegisterDrawer } from "@/providers/drawer-context";
 import { ReactNode } from "react";
 import { toast } from "sonner";
 import {
   IoDrawerButton,
   IoDrawerContentSection,
   IoDrawerFooter,
-} from "../io-drawer";
+} from "../io-drawer-primitives";
 
 // ===== CONFIGURAÇÃO DO DRAWER =====
 const DRAWER_ID = "notifications";
-const DRAWER_TITLE = "Notificações";
-const DRAWER_THEME = "light";
-const DRAWER_DIRECTION = "right";
 
 // ===== CONTEÚDO DO DRAWER =====
 interface NotificationDrawerContentProps {
@@ -166,15 +162,6 @@ export function NotificationDrawerButton({
   children,
   className,
 }: NotificationDrawerButtonProps) {
-  // Registra o drawer automaticamente quando o botão é montado
-  useRegisterDrawer({
-    id: DRAWER_ID,
-    component: NotificationDrawerContent,
-    title: DRAWER_TITLE,
-    theme: DRAWER_THEME,
-    direction: DRAWER_DIRECTION,
-  });
-
   return (
     <IoDrawerButton drawerId={DRAWER_ID} className={className}>
       {children}

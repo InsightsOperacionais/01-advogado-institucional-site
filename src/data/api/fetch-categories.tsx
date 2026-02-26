@@ -1,60 +1,28 @@
-// data/api/fetch-categories.tsx
-import { API_CONFIG } from "../config";
-import { CategoryTreeResponse, ProductCategory } from "../types/shop";
-import { API_ENDPOINTS, CACHE_TIMES } from "../utils/constants";
+import {
+  getCategoriesAction,
+  getCategoryAction,
+} from "@/data/actions/shop-actions";
+import type {
+  CategoryTreeResponse,
+  ProductCategory,
+} from "@/data/types/shop-contracts";
 
 export async function fetchCategories(): Promise<CategoryTreeResponse> {
   try {
-    const url = `${API_CONFIG.baseURL}${API_ENDPOINTS.CATEGORIES}`;
-    console.log("📡 Fetching categories from:", url);
-
-    const res = await fetch(url, {
-      headers: API_CONFIG.headers,
-      next: { revalidate: CACHE_TIMES.CATEGORIES },
-    });
-
-    if (!res.ok) {
-      console.error(
-        "❌ Categories response not OK:",
-        res.status,
-        res.statusText,
-      );
-      return { tree: [], count: 0 };
-    }
-
-    const data = await res.json();
-    console.log("📁 Categories data received:", data);
-
-    return data;
+    return await getCategoriesAction();
   } catch (error) {
-    console.error("❌ Error fetching categories:", error);
+    console.error("❌ Error fetching categories from database:", error);
     return { tree: [], count: 0 };
   }
 }
 
 export async function fetchCategory(
-  id: string,
+  idOrSlug: string,
 ): Promise<ProductCategory | null> {
   try {
-    const url = `${API_CONFIG.baseURL}${API_ENDPOINTS.CATEGORY(id)}`;
-    console.log("📡 Fetching category from:", url);
-
-    const res = await fetch(url, {
-      headers: API_CONFIG.headers,
-      next: { revalidate: CACHE_TIMES.CATEGORIES },
-    });
-
-    if (!res.ok) {
-      console.error("❌ Category response not OK:", res.status, res.statusText);
-      return null;
-    }
-
-    const data = await res.json();
-    console.log("📁 Category data received:", data);
-
-    return data;
+    return await getCategoryAction(idOrSlug);
   } catch (error) {
-    console.error("❌ Error fetching category:", error);
+    console.error("❌ Error fetching category from database:", error);
     return null;
   }
 }

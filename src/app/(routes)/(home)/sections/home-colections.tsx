@@ -4,13 +4,26 @@ import { ElementReveal } from "@/components/layout/element-reveal";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
+type CollectionShowcaseItem = {
+  id: number;
+  title: string;
+  categorySlug: string;
+  onlyDefumado?: boolean;
+  color: string;
+  product: string;
+  desc: string;
+  icon: string;
+};
+
 // ===== COLLECTIONS DATA =====
-const COLLECTIONS = [
+const COLLECTIONS: CollectionShowcaseItem[] = [
   {
     id: 1,
     title: "Queijos Artesanais",
+    categorySlug: "queijos",
     color: "bg-[#fbb725]",
     product: "Minas, Canastra, Coalho",
     desc: "Maturados no serro mineiro, sabor intenso e textura cremosa. Produção familiar com receitas centenárias.",
@@ -19,6 +32,8 @@ const COLLECTIONS = [
   {
     id: 2,
     title: "Embutidos Defumados",
+    categorySlug: "embutidos",
+    onlyDefumado: true,
     color: "bg-[#141414]",
     product: "Linguiças, Paio, Bacon",
     desc: "Defumados no fumeiro tradicional, com temperos selecionados e processo artesanal de cura.",
@@ -27,6 +42,7 @@ const COLLECTIONS = [
   {
     id: 3,
     title: "Temperos & Molhos",
+    categorySlug: "temperos",
     color: "bg-[#fbb725]",
     product: "Pimenta, Alho, Ervas",
     desc: "Temperos caseiros feitos com ingredientes frescos da horta, sem conservantes ou industrialização.",
@@ -35,6 +51,7 @@ const COLLECTIONS = [
   {
     id: 4,
     title: "Conservas",
+    categorySlug: "conservas",
     color: "bg-[#141414]",
     product: "Palmito, Pepino, Alcachofra",
     desc: "Vegetais selecionados em conserva, mantendo o sabor original e a textura crocante.",
@@ -43,6 +60,7 @@ const COLLECTIONS = [
   {
     id: 5,
     title: "Doces Caseiros",
+    categorySlug: "doces-e-geleias",
     color: "bg-[#fbb725]",
     product: "Goiabada, Doce de Leite",
     desc: "Doces tradicionais feitos no tacho de cobre, com frutas selecionadas e receitas de família.",
@@ -55,6 +73,17 @@ export function ColectionSection() {
 
   const isDarkBackground = (colorClass: string) => {
     return colorClass.includes("#141414") || colorClass.includes("bg-black");
+  };
+
+  const buildShopCategoryHref = (collection: CollectionShowcaseItem) => {
+    const params = new URLSearchParams();
+    params.set("categoria", collection.categorySlug);
+
+    if (collection.onlyDefumado) {
+      params.set("defumado", "1");
+    }
+
+    return `/shop?${params.toString()}`;
   };
 
   return (
@@ -71,10 +100,13 @@ export function ColectionSection() {
               </p>
             </ElementReveal>
             <ElementReveal delay={0.4}>
-              <button className="group flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-[#fbb725] uppercase">
+              <Link
+                href="/shop"
+                className="group flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-[#fbb725] uppercase"
+              >
                 Explorar Todos
                 <ArrowRight className="size-3 transition-transform group-hover:translate-x-1" />
-              </button>
+              </Link>
             </ElementReveal>
           </div>
 
@@ -218,7 +250,9 @@ export function ColectionSection() {
                     >
                       {col.desc}
                     </p>
-                    <button
+                    <Link
+                      href={buildShopCategoryHref(col)}
+                      onClick={(e) => e.stopPropagation()}
                       className={cn(
                         "group flex w-full items-center justify-center gap-4 rounded-full border px-6 py-3 text-[10px] font-bold tracking-widest uppercase transition-all lg:w-auto",
                         isDarkBg
@@ -227,7 +261,7 @@ export function ColectionSection() {
                       )}
                     >
                       Ver produtos
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

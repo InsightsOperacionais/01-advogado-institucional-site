@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import fetchAttributes from "../api/fetch-attributes";
+import fetchAttributes, { fetchAttribute } from "../api/fetch-attributes";
 import { queryKeys } from "../utils/query-keys";
 
 export function useAttributes() {
@@ -12,6 +12,7 @@ export function useAttributes() {
 export function useAttribute(id: string) {
   return useQuery({
     queryKey: queryKeys.attributes.detail(id),
+    queryFn: () => fetchAttribute(id),
     enabled: !!id,
   });
 }

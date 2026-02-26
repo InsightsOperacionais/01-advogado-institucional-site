@@ -2,7 +2,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useRegisterDrawer } from "@/providers/drawer-context";
 import { useCart } from "@/providers/shop-context";
 import { ArrowRight, Minus, Plus, Ticket, Trash2, Wheat } from "lucide-react";
 import Image from "next/image";
@@ -11,13 +10,10 @@ import {
   IoDrawerButton,
   IoDrawerContentSection,
   IoDrawerFooter,
-} from "../io-drawer";
+} from "../io-drawer-primitives";
 
 // ===== CONFIGURAÇÃO DO DRAWER =====
 const DRAWER_ID = "cart";
-const DRAWER_TITLE = "Carrinho";
-const DRAWER_THEME = "dark";
-const DRAWER_DIRECTION = "right";
 
 // ===== CONTEÚDO DO DRAWER =====
 interface CartDrawerContentProps {
@@ -292,15 +288,6 @@ export function CartDrawerButton({
   children,
   className,
 }: CartDrawerButtonProps) {
-  // Registra o drawer automaticamente quando o botão é montado
-  useRegisterDrawer({
-    id: DRAWER_ID,
-    component: CartDrawerContent,
-    title: DRAWER_TITLE,
-    theme: DRAWER_THEME,
-    direction: DRAWER_DIRECTION,
-  });
-
   return (
     <IoDrawerButton drawerId={DRAWER_ID} className={className}>
       {children}

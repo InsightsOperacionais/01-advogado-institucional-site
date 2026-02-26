@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/shadcnui/shadcn-base/button";
+import { Button } from "@/components/shadcnui/base/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -13,7 +13,7 @@ export function ThemeButton() {
   };
 
   return (
-    <Button variant="navbar" onClick={toggleTheme}>
+    <Button variant="ghost" onClick={toggleTheme}>
       {theme === "dark" ? (
         <MoonIcon className="size-4" />
       ) : (

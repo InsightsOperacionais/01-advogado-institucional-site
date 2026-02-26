@@ -2,9 +2,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useDrawerStore } from "@/providers/drawer-context";
-import { useMobileStore } from "@/providers/mobile-context";
 import { useScrollDirection } from "@/providers/scroll-context";
+import { useUIOverlay } from "@/providers/ui-overlay-context";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,8 +11,9 @@ import { useState } from "react";
 
 export function IoMobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { headerButtons } = useMobileStore();
-  const { openDrawer } = useDrawerStore();
+  const {
+    state: { mobileActions: headerButtons },
+  } = useUIOverlay();
   const isVisible = useScrollDirection();
   const router = useRouter();
 

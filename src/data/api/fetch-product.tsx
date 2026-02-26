@@ -1,19 +1,9 @@
-import { API_CONFIG } from "../config";
-import { Product } from "../types/shop";
-import { API_ENDPOINTS, CACHE_TIMES } from "../utils/constants";
+import { getProductAction } from "@/data/actions/shop-actions";
+import type { Product } from "@/data/types/shop-contracts";
 
-export async function fetchProduct(id: string): Promise<Product | null> {
+export async function fetchProduct(idOrSlug: string): Promise<Product | null> {
   try {
-    const res = await fetch(
-      `${API_CONFIG.baseURL}${API_ENDPOINTS.PRODUCT(id)}`,
-      {
-        headers: API_CONFIG.headers,
-        next: { revalidate: CACHE_TIMES.PRODUCTS },
-      },
-    );
-
-    if (!res.ok) return null;
-    return res.json();
+    return await getProductAction(idOrSlug);
   } catch {
     return null;
   }

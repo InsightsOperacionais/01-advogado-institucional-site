@@ -249,6 +249,7 @@ export interface SelectedAttribute {
 export interface ProductFilters {
   categoryId?: string;
   categorySlug?: string;
+  collectionSlug?: string;
   minPrice?: number;
   maxPrice?: number;
   attributes?: string[]; // Array de IDs de valores de atributos selecionados
