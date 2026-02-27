@@ -1,6 +1,6 @@
 import { getTwoFactorConfirmationByUserId } from "@/app/(auth)/data/two-factor-confirmation";
 import { LoginSchema } from "@/app/(auth)/schemas";
-import { db } from "@/lib/prisma-db";
+import { db, isDatabaseConfigured } from "@/lib/prisma-db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
@@ -16,7 +16,7 @@ export const {
   signOut,
   unstable_update,
 } = NextAuth({
-  adapter: PrismaAdapter(db),
+  ...(isDatabaseConfigured() ? { adapter: PrismaAdapter(db) } : {}),
   session: { strategy: "jwt" },
   ...authConfig,
   providers: [
