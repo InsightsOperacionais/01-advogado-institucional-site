@@ -19,9 +19,9 @@ export function InsightsSection() {
   return (
     <div className="container mx-auto">
       <div className="mb-16 flex items-end justify-between">
-        <h2 className="font-bitter text-4xl font-light lg:text-5xl">
+        <h2 className="font-bitter text-4xl font-light lg:text-6xl">
           Insights <br />
-          <span className="font-black text-[#c5a47e]">Jurídicos</span>
+          <span className="text-[#c5a47e] italic">Jurídicos</span>
         </h2>
         <Link
           href="/insights"

@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 
 const BADGES = [
   "OAB/SP",
@@ -11,19 +10,18 @@ const BADGES = [
 
 export function TrustBar() {
   return (
-    <div className="w-full border-y border-black/5 bg-white/50 py-8 backdrop-blur-sm">
-      <div className="container mx-auto flex flex-wrap justify-center gap-8 px-6 md:gap-16 lg:justify-between">
-        {BADGES.map((badge, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.4 }}
-            transition={{ delay: i * 0.1 }}
-            className="text-[10px] font-bold tracking-[0.4em] text-[#0a0a0b] grayscale"
-          >
-            {badge}
-          </motion.span>
-        ))}
+    <div className="border-y border-black/5 bg-white py-6">
+      <div className="container mx-auto px-6">
+        <div className="t flex cursor-default flex-wrap items-center justify-between gap-8">
+          {BADGES.map((s) => (
+            <span
+              key={s}
+              className="text-[10px] font-bold tracking-[0.4em] text-[#0a0a0b] uppercase opacity-40 transition-all duration-300 hover:opacity-100"
+            >
+              {s}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

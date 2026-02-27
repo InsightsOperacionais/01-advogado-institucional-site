@@ -33,7 +33,7 @@ export function GovernanceSection() {
         </span>
         <h2 className="font-bitter mt-6 text-4xl font-light lg:text-6xl">
           Rigor técnico e compromisso <br />
-          <span className="font-black text-[#c5a47e]">institucional.</span>
+          <span className="text-[#c5a47e] italic">institucional.</span>
         </h2>
       </div>
 

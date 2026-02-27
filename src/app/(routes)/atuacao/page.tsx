@@ -24,7 +24,7 @@ export default function AtuacaoPage() {
       <StrategicAdvisory />
 
       {/* 05. Protocolo Operacional - Section Escura */}
-      <section className="m-4 rounded-t-[3rem] bg-[#0a0a0b] py-32 lg:rounded-3xl">
+      <section className="m-4 rounded-3xl bg-[#0a0a0b] py-24 lg:rounded-3xl">
         <WorkMethod />
       </section>
 

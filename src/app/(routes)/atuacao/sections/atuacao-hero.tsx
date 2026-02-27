@@ -3,7 +3,7 @@ import { ElementReveal } from "@/components/layout/element-reveal";
 
 export function AtuacaoHero() {
   return (
-    <section className="relative overflow-hidden rounded-b-[3rem] bg-[#0a0a0b] pt-32 pb-32 text-white lg:rounded-b-[5rem]">
+    <section className="relative overflow-hidden bg-[#0a0a0b] pt-32 pb-32 text-white">
       {/* Elementos Decorativos de Fundo */}
       <div className="absolute top-0 left-0 size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c5a47e]/10 blur-[120px]" />
       <div className="absolute right-0 bottom-0 h-full w-1/3 bg-gradient-to-l from-[#c5a47e]/5 to-transparent" />

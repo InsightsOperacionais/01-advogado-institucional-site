@@ -1,7 +1,6 @@
 // app/layout.tsx ou app/(law)/layout.tsx
 import { Bitter, Open_Sans } from "next/font/google";
 
-import { IoDrawerContent } from "@/components/layout/io-drawer/io-drawer";
 import { IoMenuContent } from "@/components/layout/io-menu/io-menu";
 import IoMobileMenu from "@/components/layout/io-mobile-menu/io-mobile-menu";
 import Navbar from "@/components/layout/navbar/monted-navbar";
@@ -40,13 +39,9 @@ export default function LawFirmLayout({
           {/* Container Principal (O "Card" do App - Estilo Apple/Moderno) */}
           <div className="shadow-3xl relative flex h-screen w-full flex-col overflow-hidden bg-[#f4f4f5]">
             {/* --- ELEMENTOS FIXOS (Sobre o Scroll) --- */}
-            <IoDrawerContent />
             <IoMenuContent />
 
             {/* Navbar Adaptada (Desktop) */}
-            <div className="z-[110] hidden md:block">
-              <Navbar />
-            </div>
 
             {/* Menu Mobile Adaptado */}
             <div className="z-[110] md:hidden">
@@ -71,6 +66,9 @@ export default function LawFirmLayout({
             {/* --- ÁREA SCROLLÁVEL PRINCIPAL --- */}
             <MainScrollArea>
               <PageTransition>
+                <div className="z-[110] hidden md:block">
+                  <Navbar />
+                </div>
                 <main className="flex min-h-[100vh] flex-col">{children}</main>
               </PageTransition>
             </MainScrollArea>

@@ -34,9 +34,7 @@ export function TimelineSection() {
         </span>
         <h2 className="font-bitter mt-6 text-4xl font-light text-[#0a0a0b] lg:text-6xl">
           Três décadas de <br />
-          <span className="font-black text-[#c5a47e]">
-            solidez institucional.
-          </span>
+          <span className="text-[#c5a47e] italic">solidez institucional.</span>
         </h2>
       </div>
 

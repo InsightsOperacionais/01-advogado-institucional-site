@@ -22,7 +22,7 @@ export default function EquipePage() {
       </section>
 
       {/* 04. Cultura e Filosofia de Trabalho (Dark) */}
-      <section className="m-4 rounded-3xl bg-[#0a0a0b] text-white">
+      <section className="m-4 rounded-3xl bg-[#0a0a0b] py-24 text-white">
         <TeamCulture />
       </section>
 

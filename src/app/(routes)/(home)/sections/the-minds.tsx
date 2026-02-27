@@ -62,8 +62,7 @@ export function TheMindsSection() {
 
           <h2 className="font-bitter mt-6 text-4xl leading-tight font-light lg:text-6xl">
             A inteligência por <br />
-            trás da{" "}
-            <span className="font-black text-[#c5a47e]">estratégia.</span>
+            trás da <span className="text-[#c5a47e] italic">estratégia.</span>
           </h2>
 
           <div className="mt-16 space-y-8">

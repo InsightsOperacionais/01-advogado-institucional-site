@@ -1,140 +1,140 @@
 "use client";
+
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 const EXPERTISE = [
   {
     id: "01",
     title: "Direito Corporativo",
-    slug: "corporativo",
-    color: "bg-[#0a0a0b]", // Preto profundo para contraste
     desc: "Assessoria estratégica em operações de M&A, estruturação de holdings, governança corporativa e proteção de interesses societários em cenários de alta complexidade.",
   },
   {
     id: "02",
     title: "Gestão Tributária",
-    slug: "tributario",
-    color: "bg-[#161d2b]", // Navy escuro
     desc: "Inteligência fiscal aplicada à otimização de ativos, recuperação de créditos e defesa técnica em contenciosos administrativos e judiciais de grande escala.",
   },
   {
     id: "03",
     title: "Propriedade Intelectual",
-    slug: "ip",
-    color: "bg-[#0a0a0b]",
     desc: "Gestão e blindagem de ativos intangíveis, abrangendo desde o registro de marcas e patentes até a proteção de segredos de negócio em âmbito global.",
   },
   {
     id: "04",
     title: "Direito Digital",
-    slug: "digital",
-    color: "bg-[#161d2b]",
     desc: "Adequação plena à LGPD, gestão de crises cibernéticas, proteção de dados e assessoria jurídica especializada para o ecossistema de tecnologia e inovação.",
   },
 ];
 
 export function AreasExpertiseSection() {
-  const [active, setActive] = useState<number | null>(0);
+  const [active, setActive] = useState<number>(0);
 
   return (
-    <div className="w-full">
-      {/* HEADER DA SEÇÃO */}
-      <div className="mb-16 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-        <div className="max-w-2xl">
-          <span className="mb-4 block text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
-            Práticas Jurídicas
-          </span>
-          <h2 className="font-bitter text-5xl font-light text-[#0a0a0b] lg:text-7xl">
-            Nossa <span className="font-black text-[#c5a47e]">Expertise</span>
-          </h2>
+    <section className="bg-white text-[#0a0a0b]">
+      <div className="container mx-auto px-6">
+        {/* HEADER DA SEÇÃO (Mantido e refinado) */}
+        <div className="mb-12 flex flex-col items-start justify-between gap-8 border-b border-black/5 pb-12 lg:flex-row lg:items-end lg:gap-16">
+          <div className="max-w-3xl">
+            <span className="mb-4 block text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
+              Práticas Jurídicas
+            </span>
+            <h2 className="font-bitter text-5xl font-light lg:text-7xl">
+              Nossa <span className="text-[#c5a47e] italic">Expertise.</span>
+            </h2>
+          </div>
+          <p className="max-w-xs border-l border-[#c5a47e]/30 pl-6 text-sm leading-relaxed font-light text-[#0a0a0b]/60">
+            Aliamos o rigor técnico da advocacia clássica à agilidade necessária
+            para o mercado corporativo moderno.
+          </p>
         </div>
-        <p className="max-w-xs border-l border-[#c5a47e] pl-6 text-xs leading-relaxed font-light text-[#0a0a0b]/60">
-          Aliamos o rigor técnico da advocacia clássica à agilidade necessária
-          para o mercado corporativo moderno.
-        </p>
-      </div>
 
-      {/* GRID DE CARDS EXPANSÍVEIS */}
-      <div className="flex h-[550px] flex-col gap-3 lg:flex-row lg:gap-4">
-        {EXPERTISE.map((area, index) => {
-          const isExpanded = active === index;
+        {/* ESTRUTURA SPLIT-SCREEN (Sem Cards) */}
+        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12 lg:gap-24">
+          {/* COLUNA ESQUERDA: LISTA INTERATIVA (Ocupa 5 colunas) */}
+          <div className="space-y-4 lg:col-span-5">
+            <span className="mb-8 block text-[10px] font-bold tracking-[0.3em] text-[#0a0a0b]/30 uppercase">
+              Verticais de Atuação
+            </span>
 
-          return (
-            <motion.div
-              key={area.id}
-              onMouseEnter={() => setActive(index)}
-              className={cn(
-                "relative cursor-pointer overflow-hidden rounded-[2rem] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                isExpanded
-                  ? "flex-[4] shadow-2xl shadow-[#c5a47e]/10"
-                  : "flex-1",
-                area.color,
-              )}
-            >
-              {/* Overlay de Textura Sutil */}
-              <div className="pointer-events-none absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+            {EXPERTISE.map((area, index) => {
+              const isActive = active === index;
 
-              <div className="relative flex h-full flex-col justify-between p-8 lg:p-10">
-                {/* TOP: NUMERAÇÃO E ÍCONE DE AÇÃO */}
-                <div className="flex items-start justify-between">
-                  <span className="font-bitter text-5xl font-black tracking-tighter text-[#c5a47e]/20 transition-all duration-500 group-hover:text-[#c5a47e]/40">
-                    {area.id}
-                  </span>
-                  <div
-                    className={cn(
-                      "flex size-10 items-center justify-center rounded-full border border-[#c5a47e]/30 text-[#c5a47e] transition-all duration-500",
-                      isExpanded
-                        ? "rotate-0 bg-[#c5a47e] text-[#0a0a0b]"
-                        : "rotate-45 opacity-40",
-                    )}
-                  >
-                    <ArrowUpRight className="size-5" />
-                  </div>
-                </div>
-
-                {/* BOTTOM: CONTEÚDO */}
+              return (
                 <div
-                  className={cn(
-                    "transition-all duration-500 ease-out",
-                    isExpanded ? "translate-y-0" : "translate-y-4",
-                  )}
+                  key={area.id}
+                  onMouseEnter={() => setActive(index)}
+                  className="group relative flex cursor-pointer items-center justify-between border-b border-black/5 py-6 transition-colors duration-300"
                 >
-                  <h3
-                    className={cn(
-                      "font-bitter mb-6 text-2xl font-bold transition-all duration-500",
-                      isExpanded ? "text-3xl text-white" : "text-white/60",
-                    )}
-                  >
-                    {area.title}
-                  </h3>
-
-                  {/* Container de Altura Dinâmica para a descrição */}
-                  <div
-                    className={cn(
-                      "grid transition-all duration-700 ease-in-out",
-                      isExpanded
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0",
-                    )}
-                  >
-                    <div className="overflow-hidden">
-                      <p className="max-w-md border-t border-white/10 pt-6 text-sm leading-relaxed font-light text-white/50">
-                        {area.desc}
-                      </p>
-
-                      <button className="mt-8 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase transition-colors hover:text-white">
-                        Explorar Especialidade
-                      </button>
-                    </div>
+                  {/* Título com Indicação Numérica sutil */}
+                  <div className="flex items-baseline gap-6">
+                    <span className="font-bitter text-xs font-medium text-[#0a0a0b]/30 transition-colors group-hover:text-[#c5a47e]">
+                      {area.id}
+                    </span>
+                    <h3
+                      className={cn(
+                        "font-bitter text-2xl font-bold transition-all duration-500 lg:text-3xl",
+                        isActive
+                          ? "text-[#c5a47e]"
+                          : "text-[#0a0a0b] group-hover:text-[#c5a47e]/70",
+                      )}
+                    >
+                      {area.title}
+                    </h3>
                   </div>
+
+                  {/* Linha Decorativa Ativa (Motion) */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeLine"
+                      className="absolute bottom-[-1px] left-0 h-px w-full bg-[#c5a47e]"
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
+              );
+            })}
+          </div>
+
+          {/* COLUNA DIREITA: PAINEL DE CONTEÚDO (Ocupa 7 colunas) */}
+          <div className="relative h-full min-h-[300px] lg:col-span-7 lg:pl-16">
+            <div className="absolute top-0 left-0 hidden h-full w-px bg-black/5 lg:block" />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="flex h-full flex-col justify-between"
+              >
+                <div>
+                  <span className="font-bitter mb-12 block text-sm font-bold tracking-[0.2em] text-[#0a0a0b]/40 uppercase">
+                    Detalhamento da Prática
+                  </span>
+
+                  <p className="max-w-2xl text-lg leading-relaxed font-light text-[#0a0a0b]/70 lg:text-xl">
+                    {EXPERTISE[active].desc}
+                  </p>
+                </div>
+
+                {/* Botão de Ação Minimalista */}
+                <button className="group mt-16 flex items-center gap-4 self-start border-b border-[#0a0a0b]/10 pb-2 transition-colors hover:border-[#c5a47e]">
+                  <span className="text-[10px] font-bold tracking-[0.3em] text-[#0a0a0b] uppercase transition-colors group-hover:text-[#c5a47e]">
+                    Explorar Especialidade
+                  </span>
+                  <div className="h-px w-8 bg-[#0a0a0b] transition-all group-hover:w-12 group-hover:bg-[#c5a47e]" />
+                </button>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

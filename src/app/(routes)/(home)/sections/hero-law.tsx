@@ -22,7 +22,7 @@ export function HeroLawSection() {
           <h1 className="font-bitter text-5xl leading-tight font-extralight lg:text-8xl">
             <ElementReveal delay={0.4}>Defesa Intransigente</ElementReveal>
             <br />
-            <ElementReveal delay={0.6} className="font-bold text-[#c5a47e]">
+            <ElementReveal delay={0.6} className="text-[#c5a47e] italic">
               da sua Liberdade
             </ElementReveal>
           </h1>

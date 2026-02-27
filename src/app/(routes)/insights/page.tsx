@@ -21,7 +21,7 @@ export default function InsightsPage() {
       </section>
 
       {/* 04. Newsletter - O Briefing Jurídico */}
-      <section className="rounded-t-[3rem] bg-[#0a0a0b] py-24 text-white lg:rounded-t-[5rem]">
+      <section className="bg-[#0a0a0b] py-24 text-white">
         <NewsletterLaw />
       </section>
 

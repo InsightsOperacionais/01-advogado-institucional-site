@@ -1,5 +1,4 @@
 import { AreasExpertiseSection } from "./sections/areas-expertise";
-import { AuthorityNumbers } from "./sections/authority-numbers";
 import { FirmValuesSection } from "./sections/firm-values";
 import { FooterLaw } from "./sections/footer";
 import { HeroLawSection } from "./sections/hero-law";
@@ -20,9 +19,9 @@ export default function LawFirmPage() {
 
       <div className="flex flex-col gap-40 bg-[#f4f4f5] px-4 py-32 lg:px-0">
         {/* 03. NÚMEROS DE AUTORIDADE */}
-        <section className="container mx-auto">
+        {/* <section className="container mx-auto">
           <AuthorityNumbers />
-        </section>
+        </section> */}
 
         {/* 04. O QUE FAZEMOS (EXPERTISE) */}
         <section id="expertise" className="container mx-auto">

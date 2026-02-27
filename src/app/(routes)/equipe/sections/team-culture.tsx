@@ -3,7 +3,7 @@ import { BookOpen, Scale } from "lucide-react";
 
 export function TeamCulture() {
   return (
-    <div className="container mx-auto px-6 py-12">
+    <div className="container mx-auto px-6">
       <div className="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
         <div>
           <span className="text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
