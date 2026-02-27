@@ -2,11 +2,72 @@
 import { ElementReveal } from "@/components/layout/element-reveal";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Mail, MessageSquare, Phone } from "lucide-react";
+import { FormEvent, useState } from "react";
 
 export function ContactMain() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFeedback(null);
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      practiceArea: String(formData.get("practiceArea") ?? ""),
+      message: String(formData.get("message") ?? ""),
+      website: String(formData.get("website") ?? ""),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json()) as {
+        error?: string;
+        success?: string;
+      };
+
+      if (!response.ok || result.error) {
+        setFeedback({
+          type: "error",
+          message:
+            result.error ?? "Não foi possível enviar sua solicitação agora.",
+        });
+        return;
+      }
+
+      event.currentTarget.reset();
+      setFeedback({
+        type: "success",
+        message:
+          result.success ??
+          "Solicitação enviada com sucesso. Nossa equipe retornará em breve.",
+      });
+    } catch {
+      setFeedback({
+        type: "error",
+        message: "Erro de conexão ao enviar a solicitação.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className="text-white">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Formulário de Alta Complexidade */}
           <div className="rounded-[2.5rem] border border-white/5 bg-[#161617] p-8 lg:col-span-8 lg:p-16">
@@ -19,58 +80,126 @@ export function ContactMain() {
               </h2>
             </ElementReveal>
 
-            <form className="grid grid-cols-1 gap-10 md:grid-cols-2">
+            <form
+              onSubmit={onSubmit}
+              className="grid grid-cols-1 gap-10 md:grid-cols-2"
+            >
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="flex flex-col gap-3">
-                <label className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase">
+                <label
+                  htmlFor="contact-name"
+                  className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase"
+                >
                   Titular / Representante
                 </label>
                 <input
+                  id="contact-name"
+                  name="name"
                   type="text"
                   placeholder="Nome completo"
+                  required
+                  minLength={3}
                   className="w-full border-b border-white/10 bg-transparent px-2 py-3 text-sm transition-all outline-none placeholder:text-white/20 focus:border-[#c5a47e]"
                 />
               </div>
 
               <div className="flex flex-col gap-3">
-                <label className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase">
+                <label
+                  htmlFor="contact-email"
+                  className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase"
+                >
                   E-mail Corporativo
                 </label>
                 <input
+                  id="contact-email"
+                  name="email"
                   type="email"
                   placeholder="exemplo@empresa.com.br"
+                  required
                   className="w-full border-b border-white/10 bg-transparent px-2 py-3 text-sm transition-all outline-none placeholder:text-white/20 focus:border-[#c5a47e]"
                 />
               </div>
 
               <div className="flex flex-col gap-3 md:col-span-2">
-                <label className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase">
+                <label
+                  htmlFor="contact-practice-area"
+                  className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase"
+                >
                   Área de Atuação
                 </label>
-                <select className="w-full cursor-pointer appearance-none border-b border-white/10 bg-transparent px-2 py-3 text-sm transition-all outline-none focus:border-[#c5a47e]">
-                  <option className="bg-[#161617]">Societário e M&A</option>
-                  <option className="bg-[#161617]">Engenharia Fiscal</option>
-                  <option className="bg-[#161617]">
+                <select
+                  id="contact-practice-area"
+                  name="practiceArea"
+                  required
+                  className="w-full cursor-pointer appearance-none border-b border-white/10 bg-transparent px-2 py-3 text-sm transition-all outline-none focus:border-[#c5a47e]"
+                >
+                  <option className="bg-[#161617]" value="Societário e M&A">
+                    Societário e M&A
+                  </option>
+                  <option className="bg-[#161617]" value="Engenharia Fiscal">
+                    Engenharia Fiscal
+                  </option>
+                  <option
+                    className="bg-[#161617]"
+                    value="Governança Sucessória"
+                  >
                     Governança Sucessória
                   </option>
-                  <option className="bg-[#161617]">Compliance / Outros</option>
+                  <option className="bg-[#161617]" value="Compliance / Outros">
+                    Compliance / Outros
+                  </option>
                 </select>
               </div>
 
               <div className="flex flex-col gap-3 md:col-span-2">
-                <label className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase">
+                <label
+                  htmlFor="contact-message"
+                  className="ml-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase"
+                >
                   Escopo da Demanda
                 </label>
                 <textarea
+                  id="contact-message"
+                  name="message"
                   rows={4}
                   placeholder="Descreva brevemente a complexidade do caso"
+                  required
+                  minLength={20}
                   className="w-full resize-none border-b border-white/10 bg-transparent px-2 py-3 text-sm transition-all outline-none placeholder:text-white/20 focus:border-[#c5a47e]"
                 ></textarea>
               </div>
 
+              {feedback && (
+                <p
+                  className={cn(
+                    "text-sm md:col-span-2",
+                    feedback.type === "success"
+                      ? "text-emerald-300"
+                      : "text-red-300",
+                  )}
+                >
+                  {feedback.message}
+                </p>
+              )}
+
               <div className="md:col-span-2">
-                <button className="group relative flex w-full items-center justify-center gap-6 overflow-hidden rounded-full border border-[#c5a47e]/30 bg-transparent py-6 text-[10px] font-bold tracking-[0.3em] text-white uppercase transition-all hover:bg-[#c5a47e] hover:text-[#0a0a0b]">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group relative flex w-full items-center justify-center gap-6 overflow-hidden rounded-full border border-[#c5a47e]/30 bg-transparent py-6 text-[10px] font-bold tracking-[0.3em] text-white uppercase transition-all hover:bg-[#c5a47e] hover:text-[#0a0a0b] disabled:cursor-not-allowed disabled:opacity-60"
+                >
                   <span className="relative z-10">
-                    Solicitar Consultoria Estratégica
+                    {isSubmitting
+                      ? "Enviando Solicitação..."
+                      : "Solicitar Consultoria"}
                   </span>
                   <ArrowRight
                     size={16}

@@ -1,21 +1,25 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/site-config";
+import { insightArticles } from "./(routes)/insights/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://meusite.com.br";
+  const now = new Date();
+  const staticEntries: MetadataRoute.Sitemap = siteConfig.pages.map(
+    (page, index) => ({
+    url: `${siteConfig.url}${page === "/" ? "" : page}`,
+    lastModified: now,
+    changeFrequency: (page === "/" ? "weekly" : "monthly") as
+      | "weekly"
+      | "monthly",
+    priority: index === 0 ? 1 : 0.8,
+  }),
+  );
+  const articleEntries: MetadataRoute.Sitemap = insightArticles.map((article) => ({
+    url: `${siteConfig.url}/insights/${article.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    // Adicione outras rotas conforme criar (ex: /projetos, /sobre)
-    {
-      url: `${baseUrl}/projetos`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-  ];
+  return staticEntries.concat(articleEntries);
 }

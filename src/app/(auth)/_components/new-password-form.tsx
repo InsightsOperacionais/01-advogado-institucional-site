@@ -50,7 +50,7 @@ export const NewPasswordForm = () => {
   return (
     <SplitLayout
       title="Defina uma nova senha"
-      subtitle="Escolha uma senha forte para proteger sua conta ROCERIA."
+      subtitle="Escolha uma senha forte para proteger seu acesso institucional."
     >
       <div className="space-y-6">
         <div className="space-y-2 text-center">

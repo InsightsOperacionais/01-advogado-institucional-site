@@ -54,7 +54,7 @@ export const LoginForm = () => {
   return (
     <SplitLayout
       title="Bem-vindo de volta"
-      subtitle="Acesse sua conta para gerenciar seus pedidos e desfrutar da melhor curadoria artesanal do Brasil."
+      subtitle="Acesse a área restrita para acompanhar protocolos, solicitações e comunicações institucionais."
     >
       <div className="space-y-8">
         <div className="text-center">
@@ -62,7 +62,7 @@ export const LoginForm = () => {
             Acessar Conta
           </h2>
           <p className="mt-2 text-sm font-light tracking-widest text-[#141414]/40 uppercase">
-            Sua porta de entrada para a roça
+            Ambiente institucional seguro
           </p>
         </div>
 
@@ -160,7 +160,7 @@ export const LoginForm = () => {
               type="submit"
               className="group h-14 w-full rounded-full bg-[#141414] text-[11px] font-black tracking-[0.3em] text-[#fbb725] uppercase shadow-xl transition-all hover:scale-[1.02] hover:bg-[#141414] active:scale-95"
             >
-              {showTwoFactor ? "Validar Acesso" : "Entrar na Dispensa"}
+              {showTwoFactor ? "Validar Acesso" : "Entrar na Área Restrita"}
               <ArrowRight
                 size={16}
                 className="ml-2 transition-transform group-hover:translate-x-1"
@@ -188,7 +188,7 @@ export const LoginForm = () => {
                 href="/registro"
                 className="font-bold text-[#141414] underline decoration-[#fbb725]/30 underline-offset-4 transition-colors hover:text-[#fbb725]"
               >
-                Criar conta artesanal
+                Solicitar cadastro
               </Link>
             </p>
           </div>

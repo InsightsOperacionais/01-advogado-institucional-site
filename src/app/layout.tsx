@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/layout/theme/theme-provider";
+import { siteConfig } from "@/lib/site-config";
 import type { Metadata, Viewport } from "next";
 
 import "../styles/animations.css";
@@ -16,56 +17,53 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  // Substitua pela sua URL real - Essencial para que as imagens OG carreguem
-  metadataBase: new URL("https://meusite.com.br"),
+  metadataBase: new URL(siteConfig.url),
 
   title: {
-    default: "Minha Marca | Especialista em Design",
-    template: "%s | Minha Marca",
+    default: `${siteConfig.shortName} | Advocacia Empresarial de Alta Complexidade`,
+    template: `%s | ${siteConfig.shortName}`,
   },
-  description:
-    "Especialista em criar interfaces de alto impacto e soluções digitais modernas.",
-  keywords: ["Next.js", "React", "Web Design", "UI/UX", "Tailwind CSS"],
-  authors: [{ name: "Seu Nome", url: "https://linkedin.com/in/seu-perfil" }],
-  creator: "Seu Nome",
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
+  authors: [
+    {
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  ],
+  creator: siteConfig.name,
+  applicationName: siteConfig.name,
 
-  // URLs canônicas evitam problemas de SEO com "www" ou "http"
   alternates: {
     canonical: "/",
   },
 
   icons: {
-    icon: [
-      { url: "/favicon.svg?v=1", type: "image/svg+xml", sizes: "any" },
-      { url: "/icon.png?v=1", type: "image/png", sizes: "32x32" },
-    ],
-    apple: "/apple-icon.png?v=1",
+    icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
   },
 
   openGraph: {
     type: "website",
-    locale: "pt_BR",
-    url: "https://meusite.com.br",
-    title: "Minha Marca | Design & Tecnologia",
-    description:
-      "Transformando ideias em experiências digitais de alta performance.",
-    siteName: "Minha Marca",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    title: `${siteConfig.shortName} | Advocacia Empresarial`,
+    description: siteConfig.description,
+    siteName: siteConfig.shortName,
     images: [
       {
-        url: "/og-image.png",
+        url: "/assets/team/faixada.png",
         width: 1200,
         height: 630,
-        alt: "Preview do Portfólio de Design",
+        alt: "Sede da Von Marins Advocacia",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Minha Marca",
-    description: "Design & Desenvolvimento Web",
-    images: ["/og-image.png"],
-    creator: "@seu_usuario",
+    title: siteConfig.shortName,
+    description: siteConfig.description,
+    images: ["/assets/team/faixada.png"],
   },
 };
 

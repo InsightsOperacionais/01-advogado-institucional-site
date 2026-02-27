@@ -1,4 +1,5 @@
 import { Bitter, Open_Sans } from "next/font/google";
+import type { Metadata } from "next";
 
 const bitter = Bitter({
   subsets: ["latin"],
@@ -11,6 +12,17 @@ const openSans = Open_Sans({
   variable: "--font-open-sans",
   display: "swap",
 });
+
+export const metadata: Metadata = {
+  title: {
+    default: "Acesso Restrito",
+    template: "%s | Área Restrita",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function AuthRoutesLayout({
   children,

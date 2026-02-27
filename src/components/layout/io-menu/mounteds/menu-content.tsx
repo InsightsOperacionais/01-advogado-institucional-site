@@ -1,6 +1,7 @@
 "use client";
 
 import { useUIOverlay } from "@/providers/ui-overlay-context";
+import { siteConfig } from "@/lib/site-config";
 import { motion } from "framer-motion";
 import { ArrowRight, Gavel, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
@@ -90,7 +91,13 @@ export function MainMenuContent({
                     {[Linkedin, Instagram].map((Icon, i) => (
                       <motion.a
                         key={i}
-                        href="#"
+                        href={
+                          i === 0
+                            ? siteConfig.social.linkedin
+                            : siteConfig.social.instagram
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex size-10 items-center justify-center rounded-full border border-[#c5a47e]/20 bg-white/5 text-[#c5a47e] backdrop-blur-md transition-all hover:bg-[#c5a47e] hover:text-[#0a0a0b]"
                       >
                         <Icon className="size-4" />

@@ -1,5 +1,6 @@
 "use client";
 import { ElementReveal } from "@/components/layout/element-reveal";
+import Image from "next/image";
 
 const ASSOCIATES = [
   {
@@ -48,8 +49,8 @@ const ASSOCIATES = [
 
 export function AssociatesSection() {
   return (
-    <div className="container mx-auto px-6">
-      <div className="mb-20 text-center lg:text-left">
+    <div className="container mx-auto px-4">
+      <div className="mb-20">
         <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
           Corpo Técnico
         </span>
@@ -66,10 +67,12 @@ export function AssociatesSection() {
               {/* Portrait do Associado (Design de Sócio) */}
               <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-2xl bg-[#f4f4f5] sm:w-40 lg:w-48">
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a0a0b]/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <img
+                <Image
                   src={person.image}
                   alt={person.name}
-                  className="h-full w-full object-cover grayscale transition-all duration-[1.5s] ease-out group-hover:scale-110 group-hover:grayscale-0"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 200px"
+                  className="object-cover grayscale transition-all duration-[1.5s] ease-out group-hover:scale-110 group-hover:grayscale-0"
                 />
               </div>
 

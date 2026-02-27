@@ -56,6 +56,8 @@ const IoInput = React.forwardRef<HTMLInputElement, IoInputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false);
     const [displayValue, setDisplayValue] = useState("");
+    const generatedId = React.useId();
+    const inputId = props.id ?? generatedId;
 
     useEffect(() => {
       validateFormat(format);
@@ -130,6 +132,7 @@ const IoInput = React.forwardRef<HTMLInputElement, IoInputProps>(
     const disabledPassword = !propValue || props.disabled;
 
     const baseInputProps = {
+      id: inputId,
       type,
       placeholder: label ? " " : props.placeholder,
       className: cn(
@@ -146,6 +149,7 @@ const IoInput = React.forwardRef<HTMLInputElement, IoInputProps>(
 
     const labelElement = label && (
       <label
+        htmlFor={inputId}
         className={cn(
           "bg-io-card text-io-input-border pointer-events-none absolute start-2 top-2 origin-[0] -translate-y-4 scale-75 transform rounded-md px-2 text-sm duration-300",
           !isFixedLabel &&

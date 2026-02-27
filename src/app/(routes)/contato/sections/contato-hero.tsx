@@ -3,8 +3,8 @@ import { ElementReveal } from "@/components/layout/element-reveal";
 
 export function ContatoHero() {
   return (
-    <section className="relative bg-[#0a0a0b] pt-40 pb-56 text-white">
-      <div className="container mx-auto px-6">
+    <section className="relative bg-[#0a0a0b] pt-24 pb-24 text-white">
+      <div className="container mx-auto px-4">
         <div className="max-w-3xl">
           <ElementReveal>
             <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">

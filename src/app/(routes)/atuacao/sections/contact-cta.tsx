@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export function ContactCTA() {
   return (
-    <section className="w-full border-t border-black/5 bg-[#f4f4f5] py-32">
-      <div className="container mx-auto px-6">
+    <section className="w-full border-t border-black/5">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col items-start justify-between gap-16 lg:flex-row lg:items-end">
           <div className="max-w-4xl">
             <ElementReveal>
@@ -16,7 +16,7 @@ export function ContactCTA() {
             </ElementReveal>
 
             <ElementReveal delay={0.2}>
-              <h2 className="font-bitter mt-8 text-5xl leading-[1.1] font-light text-[#0a0a0b] lg:text-8xl">
+              <h2 className="font-bitter mt-8 text-4xl leading-[1.1] font-light text-[#0a0a0b] lg:text-7xl">
                 Onde a estratégia <br />
                 encontra a{" "}
                 <span className="text-[#c5a47e] italic">perenidade.</span>

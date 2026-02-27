@@ -17,6 +17,7 @@ import {
 } from "@/app/(auth)/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/app/(auth)/routes";
 import { LoginSchema } from "@/app/(auth)/schemas";
+import { rateLimit } from "@/app/(auth)/lib/rate-limit";
 import { db } from "@/lib/prisma-db";
 
 export const login = async (
@@ -30,8 +31,21 @@ export const login = async (
   }
 
   const { email, password, code } = validatedFields.data;
+  const normalizedEmail = email.toLowerCase();
 
-  const existingUser = await getUserByEmail(email);
+  const limit = await rateLimit(`auth:login:${normalizedEmail}`, {
+    maxRequests: 8,
+    windowMs: 60_000,
+  });
+
+  if (!limit.success) {
+    return {
+      error:
+        "Muitas tentativas de login. Aguarde alguns minutos e tente novamente.",
+    };
+  }
+
+  const existingUser = await getUserByEmail(normalizedEmail);
 
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "E-mail ou senha inválidos." };

@@ -16,7 +16,7 @@ export const SplitLayout = ({
   children,
   title,
   subtitle,
-  src = "/roceria/Queijo Minas Curado 1.png",
+  src = "/assets/team/faixada.png",
 }: SplitLayoutProps) => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#f1f1f1] text-[#141414] selection:bg-[#fbb725]/30">
@@ -24,7 +24,7 @@ export const SplitLayout = ({
       <div className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-multiply">
         <Image
           src="/assets/others/background-texture.svg"
-          alt="Textura ROCERIA"
+          alt="Textura Institucional"
           fill
           className="object-cover"
         />
@@ -39,16 +39,13 @@ export const SplitLayout = ({
             className="space-y-8"
           >
             <Link href="/" className="group inline-flex items-center gap-3">
-              <div className="relative size-12 overflow-hidden rounded-xl bg-[#141414] p-2 transition-transform group-hover:rotate-12">
-                <Image
-                  src="/assets/logos/roceria_logo-p.svg"
-                  alt="ROCERIA"
-                  width={40}
-                  height={40}
-                />
+              <div className="relative rounded-xl border border-[#141414]/10 bg-[#141414] px-4 py-3 transition-transform group-hover:rotate-2">
+                <span className="font-bitter text-xs font-black tracking-[0.25em] text-[#c5a47e] uppercase">
+                  VM
+                </span>
               </div>
               <span className="font-bitter text-xs font-black tracking-[0.4em] text-[#141414] uppercase">
-                ROCERIA
+                VON MARINS
               </span>
             </Link>
 
@@ -73,7 +70,7 @@ export const SplitLayout = ({
           >
             <Image
               src={src}
-              alt="Destaque ROCERIA"
+              alt="Sede institucional"
               fill
               className="object-cover transition-transform duration-1000 hover:scale-105"
               priority
@@ -82,7 +79,7 @@ export const SplitLayout = ({
             <div className="absolute bottom-8 left-8 flex items-center gap-3">
               <div className="size-2 animate-pulse rounded-full bg-[#fbb725]" />
               <span className="text-[10px] font-bold tracking-widest text-white uppercase drop-shadow-md">
-                Produto Original da Roça
+                Atendimento institucional
               </span>
             </div>
           </motion.div>
@@ -97,13 +94,11 @@ export const SplitLayout = ({
           >
             {/* Header Mobile */}
             <div className="flex flex-col items-center text-center lg:hidden">
-              <Image
-                src="/assets/logos/roceria_logo-p.svg"
-                alt="ROCERIA"
-                width={60}
-                height={60}
-                className="mb-6"
-              />
+              <div className="mb-6 rounded-xl border border-[#141414]/10 bg-[#141414] px-5 py-3">
+                <span className="font-bitter text-sm font-black tracking-[0.25em] text-[#fbb725] uppercase">
+                  VON MARINS
+                </span>
+              </div>
               <h1 className="font-bitter text-4xl font-light tracking-tighter">
                 {title}
               </h1>

@@ -9,6 +9,7 @@ import {
   Landmark,
   Scale,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const VALUES = [
@@ -54,7 +55,7 @@ export function FirmValuesSection() {
 
   return (
     <section className="bg-[#0a0a0b] text-white">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         {/* Topo: Título e Descrição (Full Width) */}
         <div className="mb-8 border-b border-white/5 pb-12">
           <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
@@ -155,10 +156,12 @@ export function FirmValuesSection() {
             <div className="relative aspect-[14.5/10] w-full overflow-hidden rounded-2xl grayscale transition-all duration-1000 hover:grayscale-0">
               <div className="absolute inset-0 z-10 bg-linear-to-t from-[#0a0a0b] via-transparent to-transparent opacity-60" />
               <div className="absolute inset-0 z-10 rounded-2xl border border-white/5" />
-              <img
+              <Image
                 src="/assets/team/faixada.png"
                 alt="Ambiente Von Marins"
-                className="h-full w-full object-cover transition-transform duration-[3s] hover:scale-105"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover transition-transform duration-[3s] hover:scale-105"
               />
               <div className="absolute bottom-8 left-8 z-20">
                 <span className="font-bitter mb-1 block text-4xl font-black text-white/10">

@@ -2,8 +2,8 @@
 
 export function IntellectualFoundation() {
   return (
-    <section className="bg-white">
-      <div className="container mx-auto px-6">
+    <section className="">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
           <div>
             <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">

@@ -1,12 +1,24 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/site-config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/private/", // Bloqueia pastas sensíveis se houver
+      disallow: [
+        "/api/",
+        "/login",
+        "/registro",
+        "/register",
+        "/reset",
+        "/new-password",
+        "/new-verification",
+        "/error",
+        "/minha-conta",
+      ],
     },
-    sitemap: "https://meusite.com.br/sitemap.xml",
+    sitemap: `${siteConfig.url}/sitemap.xml`,
+    host: siteConfig.url,
   };
 }

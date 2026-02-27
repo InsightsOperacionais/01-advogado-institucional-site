@@ -9,7 +9,9 @@ function baseTemplate(title: string, description: string, ctaLabel: string, ctaU
             <table width="560" cellpadding="0" cellspacing="0" role="presentation" style="max-width:560px;background:#ffffff;border:1px solid #e6e6e6;border-radius:18px;padding:28px;">
               <tr>
                 <td align="center" style="padding-bottom:20px;">
-                  <img src="https://roceria.com.br/assets/logos/roceria_logo-p.svg" alt="ROCERIA" width="88" style="display:block;" />
+                  <div style="display:inline-block;background:#141414;color:#fbb725;padding:10px 14px;border-radius:10px;font-size:12px;letter-spacing:3px;font-weight:700;">
+                    VON MARINS
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -42,7 +44,7 @@ function baseTemplate(title: string, description: string, ctaLabel: string, ctaU
 export function confirmEmailTemplate(url: string) {
   return baseTemplate(
     "Confirme seu e-mail",
-    "Para ativar sua conta na ROCERIA, confirme seu endereço de e-mail no botão abaixo.",
+    "Para ativar sua conta na Von Marins, confirme seu endereço de e-mail no botão abaixo.",
     "Confirmar e-mail",
     url,
   );

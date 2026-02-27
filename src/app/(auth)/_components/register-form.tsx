@@ -53,8 +53,8 @@ export const RegisterForm = () => {
 
   return (
     <SplitLayout
-      title="Crie sua conta ROCERIA"
-      subtitle="Cadastre-se para acompanhar pedidos, salvar preferências e acelerar sua compra."
+      title="Crie seu acesso institucional"
+      subtitle="Cadastre-se para acompanhar solicitações, histórico e comunicações da área restrita."
     >
       <div className="space-y-6">
         <div className="space-y-2 text-center">

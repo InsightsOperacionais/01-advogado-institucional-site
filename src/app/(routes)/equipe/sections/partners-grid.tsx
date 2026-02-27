@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 const PARTNERS = [
   {
@@ -17,7 +18,7 @@ const PARTNERS = [
 
 export function PartnersGrid() {
   return (
-    <div className="container mx-auto flex h-full max-h-screen flex-col justify-center px-6">
+    <div className="container mx-auto flex h-full flex-col justify-center px-4">
       {/* Header da Seção */}
       <div className="mb-12 shrink-0">
         <span className="text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
@@ -28,36 +29,38 @@ export function PartnersGrid() {
         </h2>
       </div>
 
-      {/* Grid de Sócios */}
-      <div className="custom-scrollbar grid grid-cols-1 gap-12 overflow-y-auto pr-4 pb-10 md:grid-cols-2 lg:gap-20">
+      {/* Grid de Sócios - Flex no mobile, Grid no desktop */}
+      <div className="flex flex-col gap-12 md:grid md:grid-cols-2 md:gap-12 lg:gap-20">
         {PARTNERS.map((partner, index) => (
           <div
             key={index}
-            className="group flex flex-col gap-8 md:flex-row md:items-center"
+            className="group flex flex-col gap-6 md:flex-row md:items-center"
           >
             {/* Portrait do Sócio */}
-            <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-2xl bg-[#f4f4f5] md:w-56 lg:w-64">
+            <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-2xl md:w-56 lg:w-64">
               <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a0a0b]/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <img
+              <Image
                 src={partner.image}
                 alt={partner.name}
-                className="h-full w-full object-cover grayscale transition-all duration-[1.5s] ease-out group-hover:scale-110 group-hover:grayscale-0"
+                fill
+                sizes="(max-width: 768px) 100vw, 260px"
+                className="object-cover grayscale transition-all duration-[1.5s] ease-out group-hover:scale-110 group-hover:grayscale-0"
               />
             </div>
 
             {/* Conteúdo Técnico */}
-            <div className="flex flex-col border-l border-black/5 pl-8 transition-colors duration-500 group-hover:border-[#c5a47e]">
+            <div className="flex flex-col border-l border-black/5 pl-6 transition-colors duration-500 group-hover:border-[#c5a47e] md:pl-8">
               <h3 className="font-bitter text-2xl font-bold text-[#0a0a0b] lg:text-3xl">
                 {partner.name}
               </h3>
               <p className="mt-2 text-[10px] font-bold tracking-[0.3em] text-[#c5a47e] uppercase">
                 {partner.role}
               </p>
-              <p className="mt-6 text-sm leading-relaxed font-light text-black/50">
+              <p className="mt-4 text-sm leading-relaxed font-light text-black/50 md:mt-6">
                 {partner.desc}
               </p>
 
-              <div className="mt-8 flex gap-6">
+              <div className="mt-6 flex gap-4 md:mt-8 md:gap-6">
                 <div className="h-[1px] w-8 bg-[#c5a47e]/30 transition-all duration-500 group-hover:w-16" />
                 <span className="text-[9px] font-black tracking-widest text-black/20 uppercase transition-colors group-hover:text-[#c5a47e]">
                   Conselho Consultivo

@@ -15,7 +15,7 @@ export default {
   },
   cookies: {
     sessionToken: {
-      name: `${process.env.PROJECT_NAME ?? "roceria"}-auth-session`,
+      name: `${process.env.PROJECT_NAME ?? "vonmarins"}-auth-session`,
       options: {
         httpOnly: true,
         sameSite: "lax",

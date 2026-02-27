@@ -4,15 +4,15 @@ import Image from "next/image";
 
 export function EquipeHero() {
   return (
-    <section className="relative overflow-hidden bg-[#0a0a0b] pt-32 pb-32 text-white">
+    <section className="relative overflow-hidden bg-[#0a0a0b] px-4 pt-24 pb-24 text-white">
       {/* Elementos Decorativos de Fundo */}
       <div className="absolute top-0 left-0 size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c5a47e]/10 blur-[120px]" />
       <div className="absolute right-0 bottom-0 h-full w-1/3 bg-gradient-to-l from-[#c5a47e]/5 to-transparent" />
 
-      <div className="relative z-10 container mx-auto px-6">
+      <div className="relative z-10 container mx-auto">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12">
           {/* Coluna de Texto (Ocupa 7 colunas) */}
-          <div className="lg:col-span-7">
+          <div className="flex flex-col lg:col-span-7">
             <ElementReveal>
               <div className="mb-8 flex items-center gap-4">
                 <div className="h-px w-12 bg-[#c5a47e]" />

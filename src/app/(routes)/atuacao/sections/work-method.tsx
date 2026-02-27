@@ -23,7 +23,7 @@ const STEPS = [
 
 export function WorkMethod() {
   return (
-    <div className="container mx-auto px-6 text-white">
+    <div className="container mx-auto px-4 text-white">
       <div className="mb-24 text-center">
         <span className="text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
           Protocolo Operacional

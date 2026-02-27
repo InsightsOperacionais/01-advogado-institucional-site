@@ -9,10 +9,8 @@ import { ReactNode, useContext, useState } from "react";
 function FrozenRoute({ children }: { children: ReactNode }) {
   const context = useContext(LayoutRouterContext);
   const isDev = process.env.NODE_ENV === "development";
-  // Em desenvolvimento não congele o contexto para não bloquear Fast Refresh/HMR.
   if (isDev) return <>{children}</>;
 
-  // Usa useState em vez de useRef - o estado é estável entre renders
   const [frozenContext] = useState(context);
 
   return (
@@ -23,7 +21,10 @@ function FrozenRoute({ children }: { children: ReactNode }) {
 }
 
 const variants: Variants = {
-  initial: { opacity: 0, y: -12 },
+  initial: {
+    opacity: 0,
+    y: -12,
+  },
   animate: {
     opacity: 1,
     y: 0,
@@ -36,22 +37,32 @@ const variants: Variants = {
   },
 };
 
-export function PageTransition({ children }: { children: ReactNode }) {
+interface PageTransitionProps {
+  children: ReactNode;
+  theme?: "light" | "dark";
+}
+
+export function PageTransition({
+  children,
+  theme = "dark",
+}: PageTransitionProps) {
   const pathname = usePathname();
+  const bgColor = theme === "dark" ? "bg-[#0a0a0b]" : "bg-white";
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        // MUDANÇA: flex-1 em vez de h-full para preencher o espaço restante
-        className="flex min-h-0 w-full flex-1 flex-col"
-      >
-        <FrozenRoute>{children}</FrozenRoute>
-      </motion.div>
-    </AnimatePresence>
+    <div className={`relative min-h-screen ${bgColor}`}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={pathname}
+          variants={variants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="flex min-h-screen w-full flex-col"
+        >
+          <FrozenRoute>{children}</FrozenRoute>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

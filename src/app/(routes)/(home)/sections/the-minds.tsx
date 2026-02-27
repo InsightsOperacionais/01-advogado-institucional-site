@@ -2,26 +2,27 @@
 import { ElementReveal } from "@/components/layout/element-reveal";
 import { motion } from "framer-motion";
 import { ArrowRight, Linkedin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const PARTNERS = [
   {
     name: "Dr. Arthur von Marins",
     role: "Sócio Fundador | Tributário",
-    img: "assets/team/partner1.jpg",
+    img: "/assets/team/partner1.jpg",
     bio: "Especialista em reestruturação societária e consultoria fiscal internacional com foco em eficiência de ativos.",
   },
   {
     name: "Dra. Helena Cavalcanti",
     role: "Sócia Diretora | Corporativo",
-    img: "assets/team/partner2.jpg",
+    img: "/assets/team/partner2.jpg",
     bio: "Liderança estratégica em M&A e governança de grupos econômicos de alta performance e expansão global.",
   },
 ];
 
 export function TheMindsSection() {
   return (
-    <section className="relative flex h-screen w-full items-center overflow-hidden bg-[#f4f4f5] px-6 lg:px-20">
+    <section className="relative flex w-full items-center overflow-hidden px-4 lg:px-20">
       <div className="container mx-auto grid h-full grid-cols-1 items-center gap-12 lg:grid-cols-12">
         {/* LADO ESQUERDO: COMPOSIÇÃO DE FOTOS (Estável) */}
         <div className="relative flex h-[60vh] items-center justify-center lg:col-span-7 lg:h-[80vh]">
@@ -37,10 +38,12 @@ export function TheMindsSection() {
                 }`}
               >
                 <div className="absolute inset-0 z-10 bg-[#0a0a0b]/40 transition-colors duration-500 group-hover:bg-transparent" />
-                <img
+                <Image
                   src={partner.img}
                   alt={partner.name}
-                  className="h-full w-full object-cover grayscale transition-all duration-1000 group-hover:scale-110 group-hover:grayscale-0"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover grayscale transition-all duration-1000 group-hover:scale-110 group-hover:grayscale-0"
                 />
                 <div className="absolute inset-0 z-20 flex flex-col justify-end p-8 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <div className="flex size-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md">

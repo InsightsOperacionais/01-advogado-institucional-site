@@ -1,78 +1,115 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
+import { insightArticles } from "../articles";
 
 const CATEGORIES = ["Todos", "Tributário", "Corporativo", "Digital", "Cível"];
-
-const POSTS = [
-  {
-    title: "Stock Options: Aspectos Fiscais e Societários",
-    cat: "Corporativo",
-    date: "24 FEV",
-  },
-  {
-    title: "LGPD em Grupos Econômicos: Gestão de Dados Compartilhados",
-    cat: "Digital",
-    date: "20 FEV",
-  },
-  {
-    title: "Planejamento Sucessório via Holding Offshore",
-    cat: "Tributário",
-    date: "15 FEV",
-  },
-  {
-    title: "Arbitragem em Contratos de Infraestrutura",
-    cat: "Cível",
-    date: "10 FEV",
-  },
-];
 
 export function InsightsCatalog() {
   const [activeTab, setActiveTab] = useState("Todos");
 
-  return (
-    <div>
-      <div className="mb-20 flex flex-wrap gap-4">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveTab(cat)}
-            className={cn(
-              "rounded-full border px-6 py-3 text-[10px] font-bold tracking-widest uppercase transition-all",
-              activeTab === cat
-                ? "border-[#0a0a0b] bg-[#0a0a0b] text-white"
-                : "border-black/10 bg-transparent text-black/40 hover:border-[#c5a47e]",
-            )}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+  const filteredPosts =
+    activeTab === "Todos"
+      ? insightArticles
+      : insightArticles.filter((post) => post.category === activeTab);
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {POSTS.map((post, i) => (
-          <div
-            key={i}
-            className="group cursor-pointer rounded-[2rem] border border-black/5 bg-white p-12 transition-all hover:border-[#c5a47e]/30"
-          >
-            <div className="mb-10 flex items-start justify-between">
-              <span className="text-[9px] font-black tracking-widest text-[#c5a47e] uppercase">
-                {post.cat}
-              </span>
-              <span className="text-[10px] font-bold text-black/20">
-                {post.date}
-              </span>
-            </div>
-            <h3 className="font-bitter text-2xl leading-snug font-light text-[#0a0a0b] transition-colors group-hover:text-[#c5a47e]">
-              {post.title}
-            </h3>
-            <div className="mt-10 h-px w-full bg-black/5 transition-colors group-hover:bg-[#c5a47e]/20" />
-            <p className="mt-8 text-[10px] font-bold tracking-[0.2em] text-black/40 uppercase transition-colors group-hover:text-[#0a0a0b]">
-              Continuar Lendo
-            </p>
-          </div>
-        ))}
+  return (
+    <section className="text-[#0a0a0b]">
+      <div className="container mx-auto px-4 pb-24">
+        {/* FILTROS EDITORIAIS */}
+        <div className="mb-20 flex flex-wrap items-center justify-center gap-6 lg:gap-12">
+          {CATEGORIES.map((cat) => {
+            const isActive = activeTab === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveTab(cat)}
+                className={cn(
+                  "relative px-2 py-4 text-[10px] font-bold tracking-[0.4em] uppercase transition-all",
+                  isActive
+                    ? "text-[#c5a47e]"
+                    : "text-[#0a0a0b]/40 hover:text-[#0a0a0b]",
+                )}
+              >
+                {cat}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTabUnderlineLight"
+                    className="absolute bottom-0 left-0 h-[2px] w-full bg-[#c5a47e]"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* GRID DE TESES JURÍDICAS */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+          <AnimatePresence mode="popLayout">
+            {filteredPosts.map((post, index) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                key={post.slug}
+              >
+                <Link
+                  href={`/insights/${post.slug}`}
+                  className="group relative flex h-full flex-col justify-between rounded-[2.5rem] border border-black/[0.06] bg-white p-10 transition-all duration-500 hover:border-[#c5a47e]/40 hover:shadow-[0_20px_50px_rgba(197,164,126,0.08)]"
+                >
+                  <div>
+                    {/* HEADER DO CARD */}
+                    <div className="mb-12 flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <span className="font-bitter text-xs font-bold text-[#c5a47e]">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div className="h-px w-8 bg-[#c5a47e]/20" />
+                        <span className="text-[9px] font-black tracking-[0.2em] text-[#0a0a0b]/40 uppercase transition-colors group-hover:text-[#c5a47e]">
+                          {post.category}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-medium text-[#0a0a0b]/20">
+                        {post.dateLabel}
+                      </span>
+                    </div>
+
+                    {/* TÍTULO MONUMENTAL */}
+                    <h3 className="font-bitter text-2xl leading-tight font-light text-[#0a0a0b] transition-colors group-hover:text-[#c5a47e] lg:text-3xl">
+                      {post.title}
+                    </h3>
+                  </div>
+
+                  {/* FOOTER DO CARD */}
+                  <div className="mt-16">
+                    <div className="mb-6 h-px w-full bg-black/[0.05] transition-colors group-hover:bg-[#c5a47e]/20" />
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold tracking-[0.3em] text-[#0a0a0b]/30 uppercase transition-colors group-hover:text-[#0a0a0b]">
+                        Explorar Tese
+                      </span>
+                      <div className="flex size-11 items-center justify-center rounded-full border border-black/5 text-[#0a0a0b] transition-all group-hover:border-[#0a0a0b] group-hover:bg-[#0a0a0b] group-hover:text-white">
+                        <ArrowUpRight size={20} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Marca d'água sutil (O luxo está nos detalhes) */}
+                  <div className="pointer-events-none absolute top-10 right-10 select-none">
+                    <span className="font-bitter text-6xl font-black text-black/[0.01] transition-colors group-hover:text-[#c5a47e]/5">
+                      VON
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

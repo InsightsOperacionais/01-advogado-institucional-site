@@ -8,7 +8,7 @@ export function HeroLawSection() {
   return (
     <section className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[#0a0a0b] text-[#f1f1f1]">
       {/* Background sutil com overlay de textura */}
-      <div className="absolute inset-0 z-10 bg-[url('/assets/images/law-texture.jpg')] bg-cover bg-center opacity-20 grayscale" />
+      <div className="absolute inset-0 z-10 bg-[url('/assets/team/faixada.png')] bg-cover bg-center opacity-20 grayscale" />
       <div className="absolute inset-0 z-20 bg-gradient-to-b from-transparent via-[#0a0a0b]/80 to-[#0a0a0b]" />
 
       <div className="relative z-30 w-full max-w-7xl px-6">
@@ -37,7 +37,7 @@ export function HeroLawSection() {
 
           <ElementReveal delay={1.0} className="mt-12">
             <Link
-              href="#contato"
+              href="/contato"
               className="group relative flex h-14 w-56 items-center justify-center overflow-hidden border border-[#c5a47e]/30 bg-transparent text-xs font-bold tracking-widest text-white transition-all hover:border-[#c5a47e]"
             >
               <div className="absolute inset-0 z-0 translate-y-full bg-[#c5a47e] transition-transform duration-500 group-hover:translate-y-0" />

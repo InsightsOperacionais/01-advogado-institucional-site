@@ -2,7 +2,7 @@
 "use client";
 
 import { useScrollDirection } from "@/providers/scroll-context";
-import { Calendar, Menu } from "lucide-react";
+import { Briefcase, Calendar, Menu } from "lucide-react";
 import Link from "next/link";
 import { MainMenuButton } from "../io-menu/mounteds/menu-content";
 import { LawButton } from "../law-button";
@@ -21,9 +21,9 @@ function NavbarContent() {
         }`}
       >
         <Link href="/" className="group">
-          <h1 className="font-bitter text-xl font-light tracking-[0.2em] text-white mix-blend-difference">
+          <span className="font-bitter text-xl font-light tracking-[0.2em] text-white mix-blend-difference">
             VON <span className="font-black text-[#c5a47e]">MARINS</span>
-          </h1>
+          </span>
         </Link>
       </div>
 
@@ -52,6 +52,15 @@ function NavbarContent() {
             size="default"
             label="Agendar"
             icon={<Calendar size={18} />}
+          />
+        </Link>
+
+        <Link href="/campanhas">
+          <LawButton
+            variant="expandible"
+            size="default"
+            label="Campanhas"
+            icon={<Briefcase size={18} />}
           />
         </Link>
 

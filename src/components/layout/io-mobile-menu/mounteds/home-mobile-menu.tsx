@@ -1,15 +1,11 @@
 "use client";
 
 import { MobileAction, useUIOverlay } from "@/providers/ui-overlay-context";
-import { Bell, Menu, User } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { BookOpen, CalendarCheck, Menu } from "lucide-react";
 import { useEffect, useMemo } from "react";
 
 export function HomeMenuButtons() {
-  const router = useRouter();
-
-  const { openMenu, openDrawer, setMobileActions, clearMobileActions } =
-    useUIOverlay();
+  const { openMenu, setMobileActions, clearMobileActions } = useUIOverlay();
 
   const buttons = useMemo<MobileAction[]>(
     () => [
@@ -20,26 +16,27 @@ export function HomeMenuButtons() {
         onClick: () => {
           openMenu("main-menu");
         },
-        className: "bg-[#141414] text-[#fbb725] border-[#fbb725]/30",
+        className:
+          "border-[#c5a47e]/30 bg-[#0a0a0b] text-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#0a0a0b]",
       },
       {
-        icon: <User className="h-5 w-5" />,
-        label: "Minha conta",
+        icon: <CalendarCheck className="h-5 w-5" />,
+        label: "Agendar",
         type: "link",
-        onClick: () => router.push("/roceria/minha-conta"),
-        className: "bg-[#141414] text-[#fbb725] border-[#fbb725]/30",
+        href: "/contato",
+        className:
+          "border-[#c5a47e]/30 bg-[#0a0a0b] text-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#0a0a0b]",
       },
       {
-        icon: <Bell className="h-5 w-5" />,
-        label: "Notificações",
-        type: "drawer",
-        onClick: () => {
-          openDrawer("notifications");
-        },
-        className: "bg-[#141414] text-[#fbb725] border-[#fbb725]/30",
+        icon: <BookOpen className="h-5 w-5" />,
+        label: "Insights",
+        type: "link",
+        href: "/insights",
+        className:
+          "border-[#c5a47e]/30 bg-[#0a0a0b] text-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#0a0a0b]",
       },
     ],
-    [openDrawer, openMenu, router],
+    [openMenu],
   );
 
   useEffect(() => {

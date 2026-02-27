@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -78,8 +77,10 @@ export function IoMobileMenu() {
 
                   <button
                     onClick={() => handleAction(action)}
+                    type="button"
+                    aria-label={action.label}
                     className={cn(
-                      "flex size-12 items-center justify-center rounded-full border border-[#fbb725]/20 bg-white text-[#141414] shadow-2xl transition-transform active:scale-90",
+                      "flex size-12 items-center justify-center rounded-full border border-[#c5a47e]/20 bg-white text-[#141414] shadow-2xl transition-transform active:scale-90",
                       action.className,
                     )}
                   >
@@ -93,11 +94,13 @@ export function IoMobileMenu() {
         {/* Botão Principal */}
         <button
           onClick={() => setIsOpen(!isOpen)}
+          type="button"
+          aria-label={isOpen ? "Fechar ações rápidas" : "Abrir ações rápidas"}
           className={cn(
             "flex size-16 items-center justify-center rounded-full border-2 shadow-2xl transition-all duration-300",
             isOpen
-              ? "border-[#fbb725] bg-[#fbb725] text-[#141414]"
-              : "border-[#fbb725]/30 bg-[#141414] text-[#fbb725] backdrop-blur-xl",
+              ? "border-[#c5a47e] bg-[#c5a47e] text-[#141414]"
+              : "border-[#c5a47e]/30 bg-[#141414] text-[#c5a47e] backdrop-blur-xl",
           )}
         >
           <AnimatePresence mode="wait">

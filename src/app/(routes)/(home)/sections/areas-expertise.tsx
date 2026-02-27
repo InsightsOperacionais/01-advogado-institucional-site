@@ -31,10 +31,10 @@ export function AreasExpertiseSection() {
   const [active, setActive] = useState<number>(0);
 
   return (
-    <section className="bg-white text-[#0a0a0b]">
-      <div className="container mx-auto px-6">
+    <section className="text-[#0a0a0b]">
+      <div className="container mx-auto px-4">
         {/* HEADER DA SEÇÃO (Mantido e refinado) */}
-        <div className="mb-12 flex flex-col items-start justify-between gap-8 border-b border-black/5 pb-12 lg:flex-row lg:items-end lg:gap-16">
+        <div className="mb-12 flex flex-col items-start justify-between gap-8 border-b border-black/5 lg:flex-row lg:items-end lg:gap-16">
           <div className="max-w-3xl">
             <span className="mb-4 block text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
               Práticas Jurídicas
@@ -73,7 +73,7 @@ export function AreasExpertiseSection() {
                     </span>
                     <h3
                       className={cn(
-                        "font-bitter text-2xl font-bold transition-all duration-500 lg:text-3xl",
+                        "font-bitter text-xl font-bold transition-all duration-500 lg:text-xl",
                         isActive
                           ? "text-[#c5a47e]"
                           : "text-[#0a0a0b] group-hover:text-[#c5a47e]/70",
@@ -118,7 +118,7 @@ export function AreasExpertiseSection() {
                     Detalhamento da Prática
                   </span>
 
-                  <p className="max-w-2xl text-lg leading-relaxed font-light text-[#0a0a0b]/70 lg:text-xl">
+                  <p className="max-w-2xl text-lg leading-relaxed font-light text-[#0a0a0b]/70 lg:text-lg">
                     {EXPERTISE[active].desc}
                   </p>
                 </div>

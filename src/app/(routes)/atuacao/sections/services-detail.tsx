@@ -36,12 +36,12 @@ const SERVICES = [
 
 export function ServicesDetail() {
   return (
-    <div className="container mx-auto px-6">
+    <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-12">
         {SERVICES.map((service, i) => (
           <div
             key={i}
-            className="group flex flex-col border-l border-black/5 pl-8 transition-all duration-500 hover:border-[#c5a47e]"
+            className="group flex flex-col border-l border-black/5 pl-4 transition-all duration-500 hover:border-[#c5a47e] sm:pl-8"
           >
             <ElementReveal delay={i * 0.1}>
               {/* Identificador Numérico */}
@@ -62,7 +62,7 @@ export function ServicesDetail() {
                 <span className="text-[10px] font-bold tracking-[0.2em] text-black/20 uppercase">
                   Domínio Técnico
                 </span>
-                <ul className="space-y-4">
+                <ul className="space-y-4 pt-4">
                   {service.items.map((item, idx) => (
                     <li
                       key={idx}

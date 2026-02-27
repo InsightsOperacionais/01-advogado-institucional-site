@@ -11,8 +11,8 @@ const SECTORS = [
 
 export function SectorsSection() {
   return (
-    <div className="border-y border-black/5 bg-white py-6">
-      <div className="container mx-auto px-6">
+    <div className="border-y border-black/5 py-6">
+      <div className="container mx-auto px-4">
         <div className="flex cursor-default flex-wrap items-center justify-between gap-8 opacity-40 transition-all duration-300 hover:opacity-100">
           {SECTORS.map((s) => (
             <span

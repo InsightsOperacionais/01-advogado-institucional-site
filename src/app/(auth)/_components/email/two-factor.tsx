@@ -9,7 +9,7 @@ export function twoFactorTemplate(token: string) {
             <table width="560" cellpadding="0" cellspacing="0" role="presentation" style="max-width:560px;background:#ffffff;border:1px solid #e6e6e6;border-radius:18px;padding:28px;">
               <tr>
                 <td style="font-size:24px;font-weight:700;line-height:1.2;padding-bottom:12px;">
-                  Código de autenticação ROCERIA
+                  Código de autenticação Von Marins
                 </td>
               </tr>
               <tr>

@@ -20,7 +20,7 @@ const OFFICES = [
 export function OfficeLocations() {
   return (
     <section className="rounded-t-3xl bg-[#0a0a0b] py-24 text-white">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         <div className="mb-20">
           <ElementReveal>
             <span className="text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">

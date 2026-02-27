@@ -38,12 +38,14 @@ export function IoMenuButton({
   };
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleClick}
       className={cn("inline-block cursor-pointer", className)}
+      aria-label="Abrir menu"
     >
       {children}
-    </div>
+    </button>
   );
 }
 
@@ -137,12 +139,12 @@ export function IoMenuContent() {
           animate="visible"
           exit="exit"
           className={cn(
-            "absolute inset-0 z-120 flex flex-col items-center justify-center",
+            "absolute inset-0 z-[120] flex flex-col items-center justify-center",
             currentTheme.bg,
           )}
         >
           {/* Botão de Fechar com RoceriaButton */}
-          <div className="absolute top-8 right-8 z-130">
+          <div className="absolute top-8 right-8 z-[130]">
             <LawButton
               variant="expandible"
               size="default"

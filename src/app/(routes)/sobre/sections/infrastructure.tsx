@@ -1,14 +1,17 @@
 "use client";
+import Image from "next/image";
 
 export function InfrastructureSection() {
   return (
-    <div className="container mx-auto mt-40 px-6">
+    <div className="container mx-auto mt-40 px-4">
       <div className="grid h-[700px] grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="group relative overflow-hidden rounded-3xl lg:col-span-8">
-          <img
+          <Image
             src="/assets/team/office-1.png"
-            className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
             alt="Office Main"
+            fill
+            sizes="(max-width: 1024px) 100vw, 66vw"
+            className="object-cover transition-transform duration-1000 group-hover:scale-105"
           />
           <div className="absolute bottom-8 left-8 z-10 text-white">
             <h4 className="font-bitter text-3xl font-light">Sede Matriz</h4>
@@ -30,10 +33,12 @@ export function InfrastructureSection() {
             </p>
           </div>
           <div className="relative overflow-hidden rounded-3xl">
-            <img
+            <Image
               src="/assets/team/office-2.png"
-              className="h-full w-full object-cover"
               alt="Meeting Room"
+              fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              className="object-cover"
             />
           </div>
         </div>

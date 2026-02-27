@@ -19,7 +19,7 @@ async function sendMail(
   const from =
     process.env.RESEND_FROM_EMAIL ??
     process.env.RESEND_TO_EMAIL ??
-    "noreply@roceria.local";
+    "noreply@vonmarins.local";
 
   if (!apiKey || !from) {
     console.warn("[auth:mail] envio ignorado: RESEND_API_KEY/RESEND_FROM_EMAIL ausentes.");
@@ -55,14 +55,18 @@ async function sendMail(
 }
 
 export async function sendTwoFactorTokenEmail(email: string, token: string) {
-  return sendMail(email, "Código de autenticação ROCERIA", twoFactorTemplate(token));
+  return sendMail(
+    email,
+    "Código de autenticação - Von Marins",
+    twoFactorTemplate(token),
+  );
 }
 
 export async function sendPasswordResetEmail(email: string, token: string) {
   const resetLink = `${appUrl}/new-password?token=${token}`;
   return sendMail(
     email,
-    "Redefinição de senha ROCERIA",
+    "Redefinição de senha - Von Marins",
     passwordResetTemplate(resetLink),
   );
 }
@@ -71,7 +75,7 @@ export async function sendVerificationEmail(email: string, token: string) {
   const confirmLink = `${appUrl}/new-verification?token=${token}`;
   return sendMail(
     email,
-    "Confirmação de e-mail ROCERIA",
+    "Confirmação de e-mail - Von Marins",
     confirmEmailTemplate(confirmLink),
   );
 }

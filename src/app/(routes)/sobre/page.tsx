@@ -1,8 +1,18 @@
-import { FooterLaw } from "../(home)/sections/footer";
+import type { Metadata } from "next";
+import { FooterLaw } from "../../../components/layout/footer/footer";
 import { GovernanceSection } from "./sections/governance";
 import { HeroSobre } from "./sections/hero-sobre";
 import { InfrastructureSection } from "./sections/infrastructure";
 import { TimelineSection } from "./sections/timeline";
+
+export const metadata: Metadata = {
+  title: "Sobre o Escritório",
+  description:
+    "História, governança e infraestrutura institucional da Von Marins Advocacia.",
+  alternates: {
+    canonical: "/sobre",
+  },
+};
 
 export default function SobrePage() {
   return (
@@ -10,7 +20,7 @@ export default function SobrePage() {
       {/* 01. INTRODUÇÃO AO LEGADO */}
       <HeroSobre />
 
-      <div className="rounded-[3rem] bg-[#f4f4f5] py-32 lg:rounded-[5rem]">
+      <div className="mx-3 rounded-[3rem] bg-[#f4f4f5] py-24 lg:rounded-[5rem]">
         {/* 02. LINHA DO TEMPO INTERATIVA */}
         <TimelineSection />
 
@@ -19,7 +29,7 @@ export default function SobrePage() {
       </div>
 
       {/* 04. GOVERNANÇA E ÉTICA */}
-      <section className="bg-[#0a0a0b] py-32 text-white">
+      <section className="bg-[#0a0a0b] py-24 text-white">
         <GovernanceSection />
       </section>
 

@@ -5,6 +5,7 @@ import type * as z from "zod";
 
 import { getPasswordResetTokenByToken } from "@/app/(auth)/data/password-reset-token";
 import { getUserByEmail } from "@/app/(auth)/data/user";
+import { rateLimit } from "@/app/(auth)/lib/rate-limit";
 import { NewPasswordSchema } from "@/app/(auth)/schemas";
 import { db } from "@/lib/prisma-db";
 
@@ -14,6 +15,18 @@ export const newPassword = async (
 ) => {
   if (!token) {
     return { error: "Token ausente." };
+  }
+
+  const limit = await rateLimit(`auth:new-password:${token}`, {
+    maxRequests: 5,
+    windowMs: 10 * 60_000,
+  });
+
+  if (!limit.success) {
+    return {
+      error:
+        "Muitas tentativas de redefinição. Aguarde alguns minutos e tente novamente.",
+    };
   }
 
   const validatedFields = NewPasswordSchema.safeParse(values);

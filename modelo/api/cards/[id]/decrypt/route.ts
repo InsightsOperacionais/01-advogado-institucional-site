@@ -1,5 +1,5 @@
 // app/api/cards/[id]/decrypt/route.ts
-import { db } from "@/app/(auth)/lib/db";
+import { db } from "@/lib/prisma-db";
 import { decrypt } from "@/lib/encryption";
 import { NextResponse } from "next/server";
 

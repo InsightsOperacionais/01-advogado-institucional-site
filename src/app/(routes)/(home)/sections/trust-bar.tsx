@@ -11,7 +11,7 @@ const BADGES = [
 export function TrustBar() {
   return (
     <div className="border-y border-black/5 bg-white py-6">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         <div className="t flex cursor-default flex-wrap items-center justify-between gap-8">
           {BADGES.map((s) => (
             <span

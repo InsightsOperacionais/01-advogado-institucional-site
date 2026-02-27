@@ -27,7 +27,7 @@ const EVENTS = [
 
 export function TimelineSection() {
   return (
-    <div className="container mx-auto px-6">
+    <div className="container mx-auto px-4">
       <div className="mb-24">
         <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
           Nossa Trajetória

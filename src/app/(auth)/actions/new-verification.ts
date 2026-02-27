@@ -2,9 +2,22 @@
 
 import { getUserByEmail } from "@/app/(auth)/data/user";
 import { getVerificationTokenByToken } from "@/app/(auth)/data/verification-token";
+import { rateLimit } from "@/app/(auth)/lib/rate-limit";
 import { db } from "@/lib/prisma-db";
 
 export const newVerification = async (token: string) => {
+  const limit = await rateLimit(`auth:new-verification:${token}`, {
+    maxRequests: 10,
+    windowMs: 15 * 60_000,
+  });
+
+  if (!limit.success) {
+    return {
+      error:
+        "Muitas tentativas de verificação. Aguarde alguns minutos e tente novamente.",
+    };
+  }
+
   const existingToken = await getVerificationTokenByToken(token);
 
   if (!existingToken) {

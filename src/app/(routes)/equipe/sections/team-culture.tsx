@@ -1,9 +1,10 @@
 "use client";
 import { BookOpen, Scale } from "lucide-react";
+import Image from "next/image";
 
 export function TeamCulture() {
   return (
-    <div className="container mx-auto px-6">
+    <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
         <div>
           <span className="text-[10px] font-bold tracking-[0.5em] text-[#c5a47e] uppercase">
@@ -39,9 +40,12 @@ export function TeamCulture() {
 
         <div className="relative aspect-video overflow-hidden rounded-3xl lg:aspect-video">
           {/* <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a0a0b]/40 to-transparent" /> */}
-          <img
+          <Image
             src="/assets/team/equipe.jpg"
-            className="h-full w-full object-cover opacity-60"
+            alt="Equipe Von Marins em reunião estratégica"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover opacity-60"
           />
         </div>
       </div>

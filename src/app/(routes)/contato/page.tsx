@@ -1,7 +1,17 @@
-import { FooterLaw } from "../(home)/sections/footer";
+import type { Metadata } from "next";
+import { FooterLaw } from "../../../components/layout/footer/footer";
 import { ContactMain } from "./sections/contact-main";
 import { ContatoHero } from "./sections/contato-hero";
 import { OfficeLocations } from "./sections/office-locations";
+
+export const metadata: Metadata = {
+  title: "Contato",
+  description:
+    "Canal de contato institucional para abertura de demandas jurídicas e agendamento de consulta estratégica.",
+  alternates: {
+    canonical: "/contato",
+  },
+};
 
 export default function ContatoPage() {
   return (
@@ -10,7 +20,7 @@ export default function ContatoPage() {
       <ContatoHero />
 
       {/* 02. Área Principal - Formulário Premium e Canais Diretos */}
-      <section className="relative z-20 container mx-auto -mt-32 mb-12 px-6">
+      <section className="relative z-20 container mx-auto mb-12">
         <ContactMain />
       </section>
 

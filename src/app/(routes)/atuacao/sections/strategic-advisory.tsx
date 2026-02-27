@@ -3,8 +3,8 @@ import { ElementReveal } from "@/components/layout/element-reveal";
 
 export function StrategicAdvisory() {
   return (
-    <section className="bg-white py-24 text-[#0a0a0b]">
-      <div className="container mx-auto px-6">
+    <section className="text-[#0a0a0b]">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
           <ElementReveal>
             <h2 className="font-bitter text-4xl leading-tight font-light lg:text-6xl">

@@ -1,16 +1,22 @@
 "use client";
 import { ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function FeaturedPost() {
   return (
-    <Link href="/insights/artigo-exemplo" className="group block">
+    <Link
+      href="/insights/responsabilidade-civil-inteligencia-artificial"
+      className="group block"
+    >
       <div className="flex flex-col overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-2xl shadow-black/10 lg:flex-row">
-        <div className="aspect-video overflow-hidden lg:aspect-auto lg:w-1/2">
-          <img
+        <div className="relative aspect-video overflow-hidden lg:aspect-auto lg:w-1/2">
+          <Image
             src="/assets/team/blog-1.png"
-            className="h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-            alt="Destaque"
+            alt="Destaque de artigo sobre responsabilidade civil em IA"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover transition-transform duration-[1.5s] group-hover:scale-105"
           />
         </div>
         <div className="flex flex-col justify-center p-10 lg:w-1/2 lg:p-20">
