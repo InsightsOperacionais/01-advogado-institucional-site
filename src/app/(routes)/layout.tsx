@@ -30,7 +30,7 @@ export default function LawFirmLayout({
         <ToasterContainer />
       </div>
 
-      <div className="flex h-screen w-full flex-col items-center justify-center bg-[#020202] py-4 pl-3">
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-[#020202] py-0 pl-0 sm:py-4 sm:pl-3">
         <div className="shadow-3xl relative flex h-screen w-full flex-col overflow-hidden bg-[#f4f4f5]">
           <div className="hidden md:block">
             <Navbar />
