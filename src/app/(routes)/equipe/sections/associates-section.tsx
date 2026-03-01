@@ -1,4 +1,3 @@
-"use client";
 import { ElementReveal } from "@/components/layout/element-reveal";
 import Image from "next/image";
 
@@ -62,8 +61,14 @@ export function AssociatesSection() {
 
       <div className="grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2">
         {ASSOCIATES.map((person, i) => (
-          <ElementReveal key={i} delay={i * 0.1}>
-            <div className="group flex flex-col gap-6 sm:flex-row sm:items-center">
+          <ElementReveal
+            key={i}
+            width="full"
+            delay={i * 0.1}
+            distance="24px"
+            variant="card"
+          >
+            <div className="group interactive-card flex flex-col gap-6 rounded-[2rem] sm:flex-row sm:items-center">
               {/* Portrait do Associado (Design de Sócio) */}
               <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-2xl bg-[#f4f4f5] sm:w-40 lg:w-48">
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0a0a0b]/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

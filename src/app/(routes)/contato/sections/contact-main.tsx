@@ -70,8 +70,8 @@ export function ContactMain() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Formulário de Alta Complexidade */}
-          <div className="rounded-[2.5rem] border border-white/5 bg-[#161617] p-8 lg:col-span-8 lg:p-16">
-            <ElementReveal>
+          <div className="interactive-card interactive-card-dark rounded-[2.5rem] border border-white/5 bg-[#161617] p-8 lg:col-span-8 lg:p-16">
+            <ElementReveal width="full" variant="card" distance="24px">
               <h2 className="font-bitter mb-12 text-3xl font-light text-white lg:text-4xl">
                 Abertura de{" "}
                 <span className="text-[#c5a47e] italic">
@@ -232,9 +232,13 @@ export function ContactMain() {
                 color: "text-[#c5a47e]",
               },
             ].map((item, i) => (
-              <div
+              <ElementReveal
                 key={i}
-                className="group flex flex-col gap-4 rounded-[2rem] border border-white/5 bg-[#161617] p-8 transition-all hover:border-[#c5a47e]/30"
+                width="full"
+                delay={i * 0.08}
+                distance="22px"
+                variant="card"
+                className="group interactive-card interactive-card-dark flex flex-col gap-4 rounded-[2rem] border border-white/5 bg-[#161617] p-8 transition-all hover:border-[#c5a47e]/30"
               >
                 <div
                   className={cn(
@@ -252,7 +256,7 @@ export function ContactMain() {
                     {item.detail}
                   </p>
                 </div>
-              </div>
+              </ElementReveal>
             ))}
 
             {/* Selo de Segurança de Dados */}

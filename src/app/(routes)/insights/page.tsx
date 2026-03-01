@@ -1,9 +1,26 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { FooterLaw } from "../../../components/layout/footer/footer";
 import { FeaturedPost } from "./sections/featured-post";
-import { InsightsCatalog } from "./sections/insights-catalog";
 import { InsightsHero } from "./sections/insights-hero";
-import { NewsletterLaw } from "./sections/newsletter-law";
+
+const InsightsCatalog = dynamic(
+  () =>
+    import("./sections/insights-catalog").then(
+      (module) => module.InsightsCatalog,
+    ),
+  {
+    loading: () => <div className="h-[720px]" aria-hidden="true" />,
+  },
+);
+
+const NewsletterLaw = dynamic(
+  () =>
+    import("./sections/newsletter-law").then((module) => module.NewsletterLaw),
+  {
+    loading: () => <div className="h-[320px]" aria-hidden="true" />,
+  },
+);
 
 export const metadata: Metadata = {
   title: "Insights",

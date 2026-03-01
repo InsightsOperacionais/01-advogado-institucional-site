@@ -1,14 +1,8 @@
-// app/layout.tsx ou app/(law)/layout.tsx
 import { Bitter, Open_Sans } from "next/font/google";
 
-import { IoMenuContent } from "@/components/layout/io-menu/io-menu";
 import IoMobileMenu from "@/components/layout/io-mobile-menu/io-mobile-menu";
-import { HomeMenuButtons } from "@/components/layout/io-mobile-menu/mounteds/home-mobile-menu";
 import Navbar from "@/components/layout/navbar/monted-navbar";
-import { PageTransition } from "@/components/layout/page-transition";
 import { ToasterContainer } from "@/components/layout/toaster-container";
-import { RootProvider } from "@/providers/root-provider";
-import { MainScrollArea } from "@/providers/scroll-context";
 
 // Tipografia de Autoridade
 const bitter = Bitter({
@@ -30,55 +24,29 @@ export default function LawFirmLayout({
 }) {
   return (
     <div
-      className={`${bitter.variable} ${openSans.variable} font-sans text-[#0a0a0b] selection:bg-[#c5a47e] selection:text-[#0a0a0b]`}
+      className={`${bitter.variable} ${openSans.variable} min-h-screen bg-[#0a0a0b] font-sans text-[#0a0a0b] selection:bg-[#c5a47e] selection:text-[#0a0a0b]`}
     >
-      <RootProvider>
-        <HomeMenuButtons />
-        {/* Background fixo do App - Tom Noir Profundo */}
-        <div className="flex h-screen w-full flex-col items-center justify-center bg-[#020202] p-0">
-          <ToasterContainer />
+      <div className="fixed inset-x-0 top-4 z-[150]">
+        <ToasterContainer />
+      </div>
 
-          {/* Container Principal (O "Card" do App - Estilo Apple/Moderno) */}
-          <div className="shadow-3xl relative flex h-screen w-full flex-col overflow-hidden bg-[#f4f4f5]">
-            {/* --- ELEMENTOS FIXOS (Sobre o Scroll) --- */}
-            <IoMenuContent />
-
-            {/* Navbar Adaptada (Desktop) */}
-            <div className="z-[110] hidden md:block">
-              <Navbar />
-            </div>
-
-            {/* Menu Mobile Adaptado */}
-            <div className="z-[110] md:hidden">
-              <IoMobileMenu />
-            </div>
-
-            {/* Branding Flutuante (Logo Von Marins) */}
-            {/* <div className="pointer-events-none absolute top-10 left-10 z-[140] hidden sm:block">
-              <Link href="/" className="pointer-events-auto">
-                <div className="flex flex-col">
-                  <span className="font-bitter text-xl font-light tracking-[0.3em] text-white mix-blend-difference">
-                    VON{" "}
-                    <span className="font-black text-[#c5a47e]">MARINS</span>
-                  </span>
-                  <span className="text-[7px] font-bold tracking-[0.6em] text-[#c5a47e] uppercase">
-                    Advocacia
-                  </span>
-                </div>
-              </Link>
-            </div> */}
-
-            {/* --- ÁREA SCROLLÁVEL PRINCIPAL --- */}
-            <MainScrollArea>
-              <PageTransition>
-                <main className="flex min-h-[100vh] flex-col bg-[#f4f4f5]">
-                  {children}
-                </main>
-              </PageTransition>
-            </MainScrollArea>
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-[#020202] py-4 pl-3">
+        <div className="shadow-3xl relative flex h-screen w-full flex-col overflow-hidden bg-[#f4f4f5]">
+          <div className="hidden md:block">
+            <Navbar />
           </div>
+
+          <div className="md:hidden">
+            <IoMobileMenu />
+          </div>
+
+          {/* <RouteTransition> */}
+          <main className="flex min-h-screen flex-col overflow-auto bg-[#f4f4f5]">
+            {children}
+          </main>
+          {/* </RouteTransition> */}
         </div>
-      </RootProvider>
+      </div>
     </div>
   );
 }

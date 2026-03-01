@@ -1,4 +1,3 @@
-"use client";
 import { ElementReveal } from "@/components/layout/element-reveal";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";

@@ -1,11 +1,28 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { FooterLaw } from "../../../components/layout/footer/footer";
-import { AreasExpertiseSection } from "./sections/areas-expertise";
-import { FirmValuesSection } from "./sections/firm-values";
 import { HeroLawSection } from "./sections/hero-law";
 import { InsightsSection } from "./sections/insights";
 import { TheMindsSection } from "./sections/the-minds";
 import { TrustBar } from "./sections/trust-bar";
+
+const AreasExpertiseSection = dynamic(
+  () =>
+    import("./sections/areas-expertise").then(
+      (module) => module.AreasExpertiseSection,
+    ),
+  {
+    loading: () => <div className="h-[420px]" aria-hidden="true" />,
+  },
+);
+
+const FirmValuesSection = dynamic(
+  () =>
+    import("./sections/firm-values").then((module) => module.FirmValuesSection),
+  {
+    loading: () => <div className="h-[560px]" aria-hidden="true" />,
+  },
+);
 
 export const metadata: Metadata = {
   title: "Início",

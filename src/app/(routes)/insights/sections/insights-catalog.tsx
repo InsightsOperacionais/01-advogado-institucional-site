@@ -60,7 +60,7 @@ export function InsightsCatalog() {
               >
                 <Link
                   href={`/insights/${post.slug}`}
-                  className="group relative flex h-full flex-col justify-between rounded-[2.5rem] border border-black/[0.06] bg-white p-10 transition-all duration-500 hover:border-[#c5a47e]/40 hover:shadow-[0_20px_50px_rgba(197,164,126,0.08)]"
+                  className="group interactive-card relative flex h-full flex-col justify-between rounded-[2.5rem] border border-black/[0.06] bg-white p-10 transition-all duration-500 hover:border-[#c5a47e]/40 hover:shadow-[0_20px_50px_rgba(197,164,126,0.08)]"
                 >
                   <div>
                     {/* HEADER DO CARD */}

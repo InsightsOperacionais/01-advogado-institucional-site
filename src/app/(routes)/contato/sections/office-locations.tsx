@@ -1,4 +1,3 @@
-"use client";
 import { ElementReveal } from "@/components/layout/element-reveal";
 import { MapPin } from "lucide-react";
 
@@ -34,31 +33,33 @@ export function OfficeLocations() {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
           {OFFICES.map((office, i) => (
-            <div
+            <ElementReveal
               key={i}
-              className="group relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#161617] p-12 transition-all duration-500 hover:border-[#c5a47e]/50 hover:bg-[#1a1a1c]"
+              width="full"
+              delay={i * 0.1}
+              distance="24px"
+              variant="card"
+              className="group interactive-card interactive-card-dark relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#161617] p-12 transition-all duration-500 hover:border-[#c5a47e]/50 hover:bg-[#1a1a1c]"
             >
-              <ElementReveal delay={i * 0.1}>
-                <div className="relative z-10">
-                  <MapPin className="mb-8 size-12 p-2 text-[#c5a47e] transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-110" />
+              <div className="relative z-10">
+                <MapPin className="mb-8 size-12 p-2 text-[#c5a47e] transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-110" />
 
-                  <h3 className="font-bitter mb-4 text-3xl font-bold text-white">
-                    {office.city}
-                  </h3>
+                <h3 className="font-bitter mb-4 text-3xl font-bold text-white">
+                  {office.city}
+                </h3>
 
-                  <p className="mb-8 text-sm leading-relaxed font-light text-white/40">
-                    {office.address} <br />
-                    <span className="text-[#c5a47e]/60">{office.region}</span>
+                <p className="mb-8 text-sm leading-relaxed font-light text-white/40">
+                  {office.address} <br />
+                  <span className="text-[#c5a47e]/60">{office.region}</span>
+                </p>
+
+                <div className="flex items-center gap-4">
+                  <div className="h-px w-8 bg-[#c5a47e]/30" />
+                  <p className="text-xs font-bold tracking-[0.2em] text-[#c5a47e] uppercase">
+                    {office.phone}
                   </p>
-
-                  <div className="flex items-center gap-4">
-                    <div className="h-px w-8 bg-[#c5a47e]/30" />
-                    <p className="text-xs font-bold tracking-[0.2em] text-[#c5a47e] uppercase">
-                      {office.phone}
-                    </p>
-                  </div>
                 </div>
-              </ElementReveal>
+              </div>
 
               {/* Elemento Decorativo: Brilho de fundo no hover */}
               <div className="absolute -top-10 -right-10 size-40 rounded-full bg-[#c5a47e]/5 opacity-0 blur-3xl transition-opacity group-hover:opacity-100" />
@@ -69,7 +70,7 @@ export function OfficeLocations() {
                   VON
                 </span>
               </div>
-            </div>
+            </ElementReveal>
           ))}
         </div>
       </div>

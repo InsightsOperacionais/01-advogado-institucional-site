@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 const lawButtonVariants = cva(
-  "group inline-flex items-center justify-center rounded-full border transition-all duration-500 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-1 focus-visible:ring-[#c5a47e]/50 text-[10px] font-bold tracking-[0.2em] uppercase",
+  "group inline-flex items-center justify-center rounded-full border transition-all duration-500 motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-1 focus-visible:ring-[#c5a47e]/50 text-[10px] font-bold tracking-[0.2em] uppercase",
   {
     variants: {
       variant: {
@@ -18,7 +18,7 @@ const lawButtonVariants = cva(
         ghost:
           "border-transparent bg-transparent text-white/60 hover:text-[#c5a47e] hover:bg-white/5",
         expandible:
-          "border-[#c5a47e]/20 bg-[#0a0a0b]/50 text-[#c5a47e] backdrop-blur-md hover:border-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#0a0a0b]",
+          "border-[#c5a47e]/20 bg-[#0a0a0b] text-[#c5a47e] backdrop-blur-none md:bg-[#0a0a0b]/80 md:backdrop-blur-md hover:border-[#c5a47e] hover:bg-[#c5a47e] hover:text-[#0a0a0b]",
         "carousel-control":
           "border border-white/10 bg-[#0a0a0b] text-[#c5a47e] hover:border-[#c5a47e] hover:bg-[#c5a47e]/10 active:scale-90",
       },
