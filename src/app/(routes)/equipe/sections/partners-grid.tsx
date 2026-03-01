@@ -1,4 +1,4 @@
-"use client";
+import { ElementReveal } from "@/components/layout/element-reveal";
 import Image from "next/image";
 
 const PARTNERS = [
@@ -32,9 +32,13 @@ export function PartnersGrid() {
       {/* Grid de Sócios - Flex no mobile, Grid no desktop */}
       <div className="flex flex-col gap-12 md:grid md:grid-cols-2 md:gap-12 lg:gap-20">
         {PARTNERS.map((partner, index) => (
-          <div
+          <ElementReveal
             key={index}
-            className="group flex flex-col gap-6 md:flex-row md:items-center"
+            width="full"
+            delay={index * 0.08}
+            distance="24px"
+            variant="card"
+            className="group interactive-card flex flex-col gap-6 rounded-[2rem] md:flex-row md:items-center"
           >
             {/* Portrait do Sócio */}
             <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden rounded-2xl md:w-56 lg:w-64">
@@ -67,7 +71,7 @@ export function PartnersGrid() {
                 </span>
               </div>
             </div>
-          </div>
+          </ElementReveal>
         ))}
       </div>
     </div>

@@ -1,20 +1,58 @@
-// app/(projetos)/components/layout/navbar/law-navbar.tsx
 "use client";
 
-import { useScrollDirection } from "@/providers/scroll-context";
+import { IoMenuButton } from "@/components/layout/io-menu/io-menu";
 import { Briefcase, Calendar, Menu } from "lucide-react";
 import Link from "next/link";
-import { MainMenuButton } from "../io-menu/mounteds/menu-content";
+import { useEffect, useRef, useState } from "react";
 import { LawButton } from "../law-button";
 
+export function useNavbarVisibility(threshold: number = 20) {
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ticking.current) return;
+
+      ticking.current = true;
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY < 5) {
+          setIsVisible(true);
+        } else if (
+          currentScrollY > lastScrollY.current &&
+          currentScrollY > threshold
+        ) {
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY.current) {
+          setIsVisible(true);
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [threshold]);
+
+  return isVisible;
+}
+
 function NavbarContent() {
-  const isVisible = useScrollDirection();
+  const isVisible = useNavbarVisibility();
 
   return (
     <>
-      {/* Branding Sutil na Esquerda (Sempre visível ou segue o isVisible) */}
       <div
-        className={`absolute top-8 left-8 z-50 transition-all duration-500 ${
+        className={`fixed top-8 left-8 z-[110] transition-all duration-500 ${
           isVisible
             ? "translate-x-0 opacity-100"
             : "pointer-events-none -translate-x-4 opacity-0"
@@ -27,25 +65,20 @@ function NavbarContent() {
         </Link>
       </div>
 
-      {/* Container de Ações na Direita */}
       <div
-        className={`absolute top-8 right-8 z-50 flex flex-col items-end gap-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-8 right-8 z-[110] flex flex-col items-end gap-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isVisible
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none -translate-y-4 scale-95 opacity-0"
         }`}
       >
-        {/* 01. MENU PRINCIPAL (O mais importante) */}
-        <MainMenuButton>
-          <LawButton
-            variant="expandible"
-            size="default"
-            label="Menu"
-            icon={<Menu size={20} className="text-[#c5a47e]" />}
-          />
-        </MainMenuButton>
+        <IoMenuButton
+          variant="expandible"
+          size="default"
+          label="Menu"
+          icon={<Menu size={20} className="" />}
+        />
 
-        {/* 02. AGENDAR CONSULTA (Conversão Direta para /contato) */}
         <Link href="/contato">
           <LawButton
             variant="expandible"
@@ -63,26 +96,6 @@ function NavbarContent() {
             icon={<Briefcase size={18} />}
           />
         </Link>
-
-        {/* 03. PORTAL DO CLIENTE (Substitui 'Minha Conta') */}
-        {/* <Link href="/login">
-          <LawButton
-            variant="expandible"
-            size="default"
-            label="Área Restrita"
-            icon={<User size={18} />}
-          />
-        </Link> */}
-
-        {/* 04. BUSCA JURÍDICA (Opcional para site com muitos Insights) */}
-        {/* <Link href="https://wa.me/seunumeroaqui">
-          <LawButton
-            variant="expandible"
-            size="default"
-            label="Whatsapp"
-            icon={<FaWhatsapp size={18} />}
-          />
-        </Link> */}
       </div>
     </>
   );

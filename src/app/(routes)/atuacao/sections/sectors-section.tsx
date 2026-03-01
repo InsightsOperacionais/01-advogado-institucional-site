@@ -1,5 +1,3 @@
-"use client";
-
 const SECTORS = [
   "Agribusiness",
   "Real Estate",

@@ -1,5 +1,6 @@
 "use client";
 
+import { ElementReveal } from "@/components/layout/element-reveal";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -58,20 +59,26 @@ export function FirmValuesSection() {
       <div className="container mx-auto px-4">
         {/* Topo: Título e Descrição (Full Width) */}
         <div className="mb-8 border-b border-white/5 pb-12">
-          <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
-            Diretrizes Institucionais
-          </span>
+          <ElementReveal delay={0.4}>
+            <span className="text-[10px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
+              Diretrizes Institucionais
+            </span>
+          </ElementReveal>
           <div className="mt-6 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-            <h2 className="font-bitter max-w-2xl text-4xl font-light lg:text-6xl">
-              A solidez do legado. <br />A precisão do{" "}
-              <span className="text-[#c5a47e] italic">agora.</span>
-            </h2>
-            <p className="max-w-md border-l border-[#c5a47e]/30 pl-6 text-sm leading-relaxed font-light text-white/40">
-              Atuamos na intersecção entre a alta técnica jurídica e a visão
-              estratégica de mercado. Nossa prática é definida pelo rigor e pelo
-              compromisso com a perenidade dos interesses confiados à nossa
-              banca.
-            </p>
+            <ElementReveal delay={0.3}>
+              <h2 className="font-bitter max-w-2xl text-4xl font-light lg:text-6xl">
+                A solidez do legado. <br />A precisão do{" "}
+                <span className="text-[#c5a47e] italic">agora.</span>
+              </h2>
+            </ElementReveal>
+            <ElementReveal delay={0.6}>
+              <p className="max-w-md border-l border-[#c5a47e]/30 pl-6 text-sm leading-relaxed font-light text-white/40">
+                Atuamos na intersecção entre a alta técnica jurídica e a visão
+                estratégica de mercado. Nossa prática é definida pelo rigor e
+                pelo compromisso com a perenidade dos interesses confiados à
+                nossa banca.
+              </p>
+            </ElementReveal>
           </div>
         </div>
 
@@ -153,25 +160,32 @@ export function FirmValuesSection() {
 
           {/* Coluna Direita: Imagem Card (Sticky para melhor UX) */}
           <div className="sticky top-24 hidden justify-center lg:flex">
-            <div className="relative aspect-[14.5/10] w-full overflow-hidden rounded-2xl grayscale transition-all duration-1000 hover:grayscale-0">
-              <div className="absolute inset-0 z-10 bg-linear-to-t from-[#0a0a0b] via-transparent to-transparent opacity-60" />
-              <div className="absolute inset-0 z-10 rounded-2xl border border-white/5" />
-              <Image
-                src="/assets/team/faixada.png"
-                alt="Ambiente Von Marins"
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover transition-transform duration-[3s] hover:scale-105"
-              />
-              <div className="absolute bottom-8 left-8 z-20">
-                <span className="font-bitter mb-1 block text-4xl font-black text-white/10">
-                  1994
-                </span>
-                <p className="text-[9px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
-                  Sede São Paulo
-                </p>
+            <ElementReveal
+              width="full"
+              variant="card"
+              distance="30px"
+              className="w-full"
+            >
+              <div className="interactive-card interactive-card-dark relative aspect-[14.5/10] w-full overflow-hidden rounded-2xl grayscale transition-all duration-1000 hover:grayscale-0">
+                <div className="absolute inset-0 z-10 bg-linear-to-t from-[#0a0a0b] via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 z-10 rounded-2xl border border-white/5" />
+                <Image
+                  src="/assets/team/faixada.png"
+                  alt="Ambiente Von Marins"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-[3s] hover:scale-105"
+                />
+                <div className="absolute bottom-8 left-8 z-20">
+                  <span className="font-bitter mb-1 block text-4xl font-black text-white/10">
+                    1994
+                  </span>
+                  <p className="text-[9px] font-bold tracking-[0.4em] text-[#c5a47e] uppercase">
+                    Sede São Paulo
+                  </p>
+                </div>
               </div>
-            </div>
+            </ElementReveal>
             {/* Elemento Decorativo de Fundo */}
             <div className="absolute -right-10 -bottom-10 size-64 rounded-full bg-[#c5a47e]/5 blur-[100px]" />
           </div>

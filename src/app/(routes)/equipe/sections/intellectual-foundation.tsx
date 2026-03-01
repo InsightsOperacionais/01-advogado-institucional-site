@@ -1,5 +1,3 @@
-"use client";
-
 export function IntellectualFoundation() {
   return (
     <section className="">

@@ -1,14 +1,11 @@
 // #region ---------------- USER ----------------
 
-import { UserNotification } from "@/features/notifications/types";
-
 export type User = {
   id: string;
   name: string | null;
   lastName: string | null;
   email: string | null;
   address: Address | null;
-  notifications: UserNotification[] | null;
   emails: UserEmailAccount[] | null;
   emailApp: UserEmailApp | null;
   about: string | null;

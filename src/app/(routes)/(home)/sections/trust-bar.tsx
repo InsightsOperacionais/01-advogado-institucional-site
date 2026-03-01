@@ -1,5 +1,3 @@
-"use client";
-
 const BADGES = [
   "OAB/SP",
   "CHAMBERS GLOBAL",

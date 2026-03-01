@@ -1,4 +1,3 @@
-"use client";
 import { ElementReveal } from "@/components/layout/element-reveal";
 import Image from "next/image";
 

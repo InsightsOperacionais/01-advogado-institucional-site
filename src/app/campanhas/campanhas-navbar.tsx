@@ -1,14 +1,14 @@
 "use client";
 
 import { LawButton } from "@/components/layout/law-button";
-import { useScrollDirection } from "@/providers/scroll-context";
+import { useNavbarVisibility } from "@/components/layout/navbar/monted-navbar";
 import { Briefcase, Heart, Landmark, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 function NavbarContent() {
-  const isVisible = useScrollDirection();
+  const isVisible = useNavbarVisibility();
   const pathname = usePathname();
   const [menuAberto, setMenuAberto] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
